@@ -1,5 +1,6 @@
 const { coolGray } = require('tailwindcss/colors')
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   mode: 'jit',
@@ -12,9 +13,10 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        "3xl": "1920px",
-        "4xl": "2160px",
-        "fp": "calc(512px + 66.667%)"
+        '3xl': '1920px',
+        '4xl': '2160px',
+        'fp': 'calc(512px + 66.667%)',
+        'max-sm': {'max': '540px'}
       },
       colors: {
         gray: colors.coolGray,
@@ -37,7 +39,7 @@ module.exports = {
       },
       boxShadow: {
         // solid: '0 0 0 4px #202023',
-        solid: '0 0 0 2px rgba(50, 50, 50, .25)',
+        solid: '2px 2px 0 16px rgba(17, 24, 39, .25)',
         'inner-xl': 'inset 1px 0px 8px rgba(0,0,0,.2)',
         inset: 'inset 0 1px 2px rgba(0,0,0,.1), inset 0 -1px 1px rgba(255,255,255,.05)'
       },
@@ -80,5 +82,16 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    // plugin(function({ addComponents }) {
+    //   const layouts = {
+    //     'has-side-panel': {
+    //         display: 'grid',
+    //         grid: '[stack] 1fr / min-content [stack] 1fr',
+    //     }
+    //   }
+
+    //   addComponents(layouts)
+    // })
+  ],
 }

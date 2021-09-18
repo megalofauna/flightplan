@@ -1,18 +1,22 @@
-<header class="fixed z-20 w-full px-8 bg-gray-800 border-b border-gray-900">
-    <div class="flex items-center justify-between h-16">
-        <button label="module navigation" type="button">NAV</button>
-        <a class="text-white xl:ml-0" href="/">
-            Flight Plan
-        </a>
-        <nav class="flex list-none">
-            {% if navigation.items %}
-                {% for item in navigation.items %}
-                    <a class="relative justify-between text-sm ml-8 text-gray-400 py-2 {{ 'text-white font-medium' if item.url in page.url }}" href="{{ item.url }}">
-                        <span>{{ item.label }}</span>
-                        <span class="{{ 'hidden' if not item.url in page.url }} block absolute left-0 w-full h-px bg-gray-500 -bottom-3"></span>
-                    </a>
-                {% endfor %}
-            {% endif %}
-        </nav>
-    </div>
+{% import "../components/ThemeToggle.html" as global %}
+
+<header class="flex items-center justify-between h-20 px-4 bg-gray-700 md:px-8 xl:px-12">
+    <button 
+    type="button" 
+    label="module navigation"
+    class="flex items-center justify-center w-12 h-12 xl:hidden" 
+    @click.stop="displayPane()">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+
+    <a class="flex items-center ml-4" href="/">
+        <svg class="w-8 h-8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+            <path class="text-yellow-700" d="M24 12c0 6.623-5.377 12-12 12S0 18.623 0 12h24Z" fill="currentColor"/>
+            <path class="text-blue-400" d="M0 12C0 5.377 5.377 0 12 0s12 5.377 12 12H0Z" fill="currentColor"/>
+        </svg>
+        <span class="ml-4 text-sm font-medium tracking-widest uppercase">Flight Plan</span>
+    </a>
+    {{ global.ThemeToggle() }} 
 </header>

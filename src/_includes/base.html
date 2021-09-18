@@ -1,8 +1,11 @@
+{% set moduleList = modules.sections %}
+
 <!DOCTYPE html>
 <html lang="en"
-    x-data="{ light: false }"
+    x-data="flightplan()"
+    x-init="ThemeToggle.setCurrent()"
     class="h-full"
-    :class="{ 'dark' : light !== true  }"
+    :class="{ 'dark' : ThemeToggle.isDark }"
 >
   <head>
     <meta charset="UTF-8">
@@ -19,20 +22,28 @@
   </head>
 
   <body 
-    x-data="flightplan()"
-    x-init="global.panelnav.hidePanelNav()"
     x-cloak
-    class="flex flex-col min-h-full font-sans text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-200">
+    class="[ text-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-gray-200 ]
+           [ grid grid-cols-12 ]">
+    <aside
+      x-ref="navigation-pane"
+      @click.away="hidePane()"
+      @keyup.escape="hidePane()"
+      :class="{ 'invisible -translate-x-full xl:visible xl:translate-x-0': !NavigationPanelisVisible , 'visible translate-x-0 shadow-2xl': NavigationPanelisVisible }"
+      class="fixed z-20 invisible block min-h-screen transition-all duration-300 ease-in-out bg-gray-800 bg-opacity-80 backdrop-blur-2xl w-96 xl:w-auto xl:relative xl:shadow-none xl:col-span-2">
 
-    {# Header #}
-    {% include "./blocks/header.html" %}
-    {# Main content #}
-    <main
-      class="relative w-full mx-auto max-w-screen-4xl">
+      {% include "../_includes/blocks/module-navigation-panel.html" %}
+
+    </aside>
+
+    <main class="col-span-12 xl:col-span-10">
+
+      {% include "./partials/header.html" %}
+    
       <div
         x-ref="toaster"
-        x-show="global.toaster.visible"
-        x-text="global.toaster.message"
+        x-show="ToastNotification.isVisible"
+        x-text="ToastNotification.message"
         x-transition:enter="transition ease-out duration-150"
         x-transition:enter-start="opacity-0 translate-x-8"
         x-transition:enter-end="opacity-100 translate-x-0" 
@@ -42,16 +53,17 @@
         class="fixed w-64 p-4 text-xs bg-gray-900 border-l-8 border-green-600 top-16 right-4"></div>
 
       {{content|safe}}
-      
+
     </main>
-    {# Footer #}
+    
     {% include "./blocks/footer.html" %}
 
     <!-- Alpine Plugins -->
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js"></script>
-    <script defer="defer" src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.2.x/dist/screen.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <!-- Alpine Core -->
-    <script defer="defer" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="/static/js/flightplan.js"></script>
     <script src="/static/js/app.js"></script>
 

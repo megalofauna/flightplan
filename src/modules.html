@@ -4,26 +4,28 @@ title: Modules
 date: 2021-07-02
 ---
 
-{% set moduleList = modules.pages %}
+{% set moduleList = modules.sections %}
 {% set currentIndex = 0 %}
 
 {% macro get(module) %}
-    <h1 id="module-{{ module }}"
-    class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-500 module dark:text-gray-400">{{ module }}</h1>
+    <h2 id="{{ module }}"
+    class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-500 module dark:text-gray-400">{{ module }}</h2>
     {% include["./modules/", module, ".html"] | join %}
 {% endmacro %}
 
-{# <div x-data="{ currentIndex: 0 }" class="flex"> #}
-<div x-data="{ currentIndex: 0 }" class="flex">
+<div 
+    x-data="{ currentIndex: Module.currentIndex }" 
+    x-init="Module.getTotalItems( {{moduleList|dump}} )"
+    class="grid grid-cols-12">
 
-    {# Sidebar nav #}
-    {% include "./_includes/blocks/module-navigation-panel.html" %}
-
-    <div class="grid flex-grow grid-cols-12 bg-gray-700">
+    <div class="col-span-12 bg-gray-700 3xl:col-span-10">
 
         {% for module in moduleList %}
-            <div id="module-{{ module.id }}" x-transition.opacity x-show="currentIndex === {{ loop.index0 }}"
-                class="col-span-12 p-4 module md:p-8 xl:p-12 2xl:col-span-10">{{get(module.id)}}
+            <div id="{{ module.id }}" x-transition.opacity x-show="Module.currentIndex === {{ loop.index0 }}"
+                class="col-span-12 p-4 module md:p-8 xl:p-12 2xl:col-span-10 module {% if loop.first %}active {% else %}inactive {% endif %}">
+
+                {{get(module.id)}}
+
                 {# Indicies #}
                 {% set itemTotal = moduleList.length %}
                 {% set itemIndex = loop.index0 %}
@@ -35,53 +37,50 @@ date: 2021-07-02
                 {% set nextItem = moduleList[nextIndex].id %}
                 {% set lastItem = moduleList[lastIndex].id %}
 
-                <nav class="grid grid-cols-2 mt-8">
-                    <div class="col-span-1">
-                        {% if prevIndex > -1 %}
-                            <a class="flex flex-col items-start w-full p-4 transition-colors duration-300 ease-in-out rounded md:p-8 xl:p-16 group hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:bg-opacity-50"
-                            @click="currentIndex = {{itemIndex}} - 1" href="#{{ prevItem | safe }}">
-                                <span class="flex items-center text-xs font-medium md:text-sm xl:text-md">
-                                    <svg class="inline-block w-5 h-5 mr-2 text-gray-600 group-hover:text-blue-500"
+                <nav class="flex mt-8">
+                    <div x-ref="display-prev-module" x-show="Module.currentIndex - 1 > -1" class="w-1/2 mr-auto">
+                        <a class="flex flex-col items-start w-full p-4 transition-colors duration-300 ease-in-out rounded md:p-8 xl:p-16 group hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:bg-opacity-50"
+                            @click="Module.displayPrev()" href="#{{ prevItem | safe }}">
+                            <span class="flex items-center text-xs font-medium md:text-sm xl:text-md">
+                                <svg class="inline-block w-5 h-5 mr-2 text-gray-600 group-hover:text-blue-500"
                                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
+                                    <path fill-rule="evenodd"
                                         d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
                                         clip-rule="evenodd"></path>
-                                    </svg>
+                                </svg>
                                 Prev
                             </span>
-                                <span x-text="`{{ prevItem }}`"
+                            <span x-text="`{{ prevItem }}`"
                                 class="mt-1 text-2xl font-semibold capitalize md:text-3xl xl:text-4xl"></span>
-                            </a>
-                        {% else %}
-                        {% endif %}
+                        </a>
                     </div>
-                    <div class="col-span-1">
-                        {% if nextIndex < itemTotal %}
-                            <a
+                    <div 
+                        x-ref="display-next-module" 
+                        x-show="Module.currentIndex + 1 < Module.itemsTotal" 
+                        class="w-1/2 ml-auto">
+                        <a
                             class="flex flex-col items-end w-full p-4 transition-colors duration-300 ease-in-out rounded md:p-8 xl:p-16 group hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:bg-opacity-50"
-                            @click="currentIndex = {{itemIndex}} + 1" href="#{{ nextItem | safe }}">
-                                <span class="flex items-center text-xs font-medium md:text-sm xl:text-md">
+                            @click="Module.displayNext()" href="#{{ nextItem | safe }}">
+                            <span class="flex items-center text-xs font-medium md:text-sm xl:text-md">
                                 Next
                                 <svg class="inline-block w-5 h-5 ml-2 text-gray-600 group-hover:text-blue-500"
                                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
+                                    <path fill-rule="evenodd"
                                         d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
                                         clip-rule="evenodd"></path>
-                                    </svg>
-                                </span>
-                                <span x-text="`{{ nextItem }}`"
+                                </svg>
+                            </span>
+                            <span x-text="`{{ nextItem }}`"
                                 class="mt-1 text-2xl font-semibold capitalize md:text-3xl xl:text-4xl"></span>
-                            </a>
-                        {% else %}
-                        {% endif %}
+                        </a>
                     </div>
                 </nav>
             </div>
         {% endfor %}
-        <div class="2xl:col-span-2">
-            <div id="test-container">
+    </div>
+    <div class="col-span-0 3xl:col-span-2">
+        <div id="test-container">
             {{ content | dump }}
-            </div>
         </div>
     </div>
 </div>
