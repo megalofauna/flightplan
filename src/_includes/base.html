@@ -5,7 +5,7 @@
     x-data="flightplan()"
     x-init="ThemeToggle.setCurrent()"
     class="h-full"
-    :class="{ 'dark' : ThemeToggle.isDark }"
+    :class="{'dark':ThemeToggle.isDark}"
 >
   <head>
     <meta charset="UTF-8">
@@ -21,16 +21,14 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
 
-  <body 
+  <body
     x-cloak
+    x-data="fpNavigation()"
     class="[ text-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-gray-200 ]
-           [ grid grid-cols-12 ]">
+           [ relative grid grid-cols-12 ]">
     <aside
-      x-ref="navigation-pane"
-      @click.away="hidePane()"
-      @keyup.escape="hidePane()"
-      :class="{ 'invisible -translate-x-full xl:visible xl:translate-x-0': !NavigationPanelisVisible , 'visible translate-x-0 shadow-2xl': NavigationPanelisVisible }"
-      class="fixed z-20 invisible block min-h-screen transition-all duration-300 ease-in-out bg-gray-800 bg-opacity-80 backdrop-blur-2xl w-96 xl:w-auto xl:relative xl:shadow-none xl:col-span-2">
+      :class="{ '-translate-x-full xl:translate-x-0': navPaneVisible === false, 'translate-x-0': navPaneVisible === true }"
+      class="fixed z-20 block min-h-screen transition duration-300 ease-in-out transform bg-gray-800 bg-opacity-80 backdrop-blur-2xl w-96 xl:w-auto xl:relative xl:shadow-none xl:col-span-2">
 
       {% include "../_includes/blocks/module-navigation-panel.html" %}
 
@@ -59,13 +57,13 @@
     {% include "./blocks/footer.html" %}
 
     <!-- Alpine Plugins -->
-    <script defer src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.2.x/dist/screen.min.js"></script>
+    {# <script defer src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.2.x/dist/screen.min.js"></script> #}
     <script defer src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js"></script>
     <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <!-- Alpine Core -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="/static/js/flightplan.js"></script>
-    <script src="/static/js/app.js"></script>
+    {# <script src="/static/js/app.js"></script> #}
 
     {% if path == "home" %}
       <!-- Netlify Identity Widget -->

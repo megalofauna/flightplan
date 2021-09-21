@@ -10,7 +10,7 @@
                 <div class="flex justify-between">
                     <a 
                             href="#{{ module.id }}"
-                            @click="hidePane()"
+                            @click="updateIndex({{loop.index0}})"
                             {# class="flex-grow {% if currentModule.id === module.id %}bg-opacity-5 border-l-4 {% else %}bg-opacity-0 border-transparent {% endif %}border-l-8 flex items-center h-10 transition cursor-pointer group text-sm hover:bg-gray-500 hover:bg-opacity-5"  #}
                             class="flex items-center flex-grow h-10 text-sm transition cursor-pointer group hover:bg-gray-500 hover:bg-opacity-5" 
                         >
