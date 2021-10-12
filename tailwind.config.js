@@ -61,9 +61,6 @@ module.exports = {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
-        serif: [
-          "Gazpacho Black"
-        ],
         mono: [
           '"Recursive"', 'monospace'
         ]
@@ -72,6 +69,14 @@ module.exports = {
         h2: ['clamp(1.125rem, 3vw, 2rem)', { lineHeight: 'clamp(1.75rem, 1.275rem, 1rem)'}],
         p: ['clamp(0.75rem, 2vw, 1.125rem)', { lineHeight: 'clamp(1.75, 1.5, 1.25)'}],
         lede: ['clamp(1rem, 3vw, 1.5rem)', { lineHeight: 'clamp(1, 1.5, 1.375)'}],
+      },
+      height: {
+        192: "48rem",
+        256: "64rem"
+      },
+      width: {
+        192: "48rem",
+        256: "64rem"
       }
     },
      

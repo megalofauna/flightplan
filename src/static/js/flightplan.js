@@ -19,10 +19,25 @@ function flightplan(config) {
     },
 
     Clipboard: {
-      content: '',
-      toastContent: null,
-      setContent: function (content, func) {
-        func(content);
+      toastContent: '',
+      contentTypes: {
+        "color": "copied to clipboard"
+      },
+      toastVisible: false,
+      displayToast: function () {
+        this.toastVisible = true
+      },
+      hideToast: function () {
+        this.toastVisible = false
+      },
+      setContent: function (content, copy, contentType) {
+        console.log(contentType)
+        copy(content)
+        this.toastContent = `${content} ${this.contentTypes[contentType]}`
+        this.displayToast()
+        setTimeout(() => {
+          this.hideToast()
+        }, 1500)
       }
     },
 
@@ -46,99 +61,134 @@ function flightplan(config) {
         }
       }
     },
-    Navigation: {
-      currentIndex: 0,
-      itemsTotal: 0,
+
+    NavPane: {
+      moduleIndex: 0,
+      moduleTotal: 0,
       navPaneVisible: false,
-      displayPane() {
+      displayPane: function () {
         this.navPaneVisible = true
       },
       hidePane() {
         this.navPaneVisible = false
       },
-      logIndex(loopIndex) {
-        console.log(this.currentIndex, loopIndex)
+      logIndex: function (loopIndex) {
+        console.log(this.moduleIndex, loopIndex)
       },
-      getTotalItems(list) {
-        this.itemsTotal = Object.keys(list).length
+      getTotalItems: function (list) {
+        this.moduleTotal = Object.keys(list).length
       },
-      displayPrev() {
-        this.currentIndex--
+      displayPrev: function () {
+        this.moduleIndex--
       },
-      displayNext() {
-        this.currentIndex++
+      displayNext: function () {
+        this.moduleIndex++
       },
-      updateIndex(loopIndex) {
-        this.currentIndex = loopIndex
-        // this.hidePane()
+      updateIndex: function (loopIndex) {
+        this.moduleIndex = loopIndex
+        this.hidePane()
       }
     },
+    Animation: {
+      currentDuration: '',
+      selectedDuration: '',
+      getData: function(data) {
+        console.log(data)
+        this.setDuration()
+      },
+      playAnimation: function () {
 
-    fpNavigation() {
-      return {
-        moduleIndex: 0,
-        moduleTotal: 0,
-        navPaneVisible: false,
-        displayPane: function() {
-          console.log('display')
-          this.navPaneVisible = true
-        },
-        hidePane: function() {
-          console.log('hide')
-          this.navPaneVisible = false
-        },
-        logIndex: function(loopIndex) {
-          console.log(this.moduleIndex, loopIndex)
-        },
-        getTotalItems: function(list) {
-          this.moduleTotal = Object.keys(list).length
-        },
-        displayPrev: function() {
-          this.moduleIndex--
-        },
-        displayNext: function() {
-          this.moduleIndex++
-        },
-        updateIndex: function(loopIndex) {
-          this.moduleIndex = loopIndex
-          this.hidePane()
-        }
+      },
+      stopAnimation: function () {
+
+      },
+      setDuration: function (selectedDuration) {
+          currentDuration = selectedDuration
+      },
+      stopAllAnimations: function () {
+
       }
-    }
+
+    },
+    Utility: {
+    },
+
+    // Navigation: {
+    //   currentIndex: 0,
+    //   itemsTotal: 0,
+    //   navPaneVisible: false,
+    //   displayPane() {
+    //     this.navPaneVisible = true
+    //   },
+    //   hidePane() {
+    //     this.navPaneVisible = false
+    //   },
+    //   logIndex(loopIndex) {
+    //     console.log(this.currentIndex, loopIndex)
+    //   },
+    //   getTotalItems(list) {
+    //     this.itemsTotal = Object.keys(list).length
+    //   },
+    //   displayPrev() {
+    //     this.currentIndex--
+    //   },
+    //   displayNext() {
+    //     this.currentIndex++
+    //   },
+    //   updateIndex(loopIndex) {
+    //     this.currentIndex = loopIndex
+    //     // this.hidePane()
+    //   }
+    // },
+
+    // fpNavigation() {
+    //   return {
+    //     moduleIndex: 0,
+    //     moduleTotal: 0,
+    //     navPaneVisible: false,
+    //     displayPane: function() {
+    //       console.log('display')
+    //       this.navPaneVisible = true
+    //     },
+    //     hidePane: function() {
+    //       console.log('hide')
+    //       this.navPaneVisible = false
+    //     },
+    //     logIndex: function(loopIndex) {
+    //       console.log(this.moduleIndex, loopIndex)
+    //     },
+    //     getTotalItems: function(list) {
+    //       this.moduleTotal = Object.keys(list).length
+    //     },
+    //     displayPrev: function() {
+    //       this.moduleIndex--
+    //     },
+    //     displayNext: function() {
+    //       this.moduleIndex++
+    //     },
+    //     updateIndex: function(loopIndex) {
+    //       this.moduleIndex = loopIndex
+    //       this.hidePane()
+    //     }
+    //   }
+    // }
 
   }
 }
 
-// function fpNavigation() {
+
+
+
+// function toggleNavPanel() {
 //   return {
-//     moduleIndex: 0,
-//     moduleTotal: 0,
 //     navPaneVisible: false,
 //     displayPane: function() {
-//       console.log('display')
 //       this.navPaneVisible = true
 //     },
 //     hidePane: function() {
 //       this.navPaneVisible = false
-//     },
-//     logIndex: function(loopIndex) {
-//       console.log(this.moduleIndex, loopIndex)
-//     },
-//     getTotalItems: function(list) {
-//       this.moduleTotal = Object.keys(list).length
-//     },
-//     displayPrev: function() {
-//       this.moduleIndex--
-//     },
-//     displayNext: function() {
-//       this.moduleIndex++
-//     },
-//     updateIndex: function(loopIndex) {
-//       this.moduleIndex = loopIndex
-//       this.hidePane()
 //     }
 //   }
 // }
-
 
 

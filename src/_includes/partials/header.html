@@ -1,24 +1,24 @@
 {% import "../components/ThemeToggle.html" as global %}
 
 <header 
-    class="flex items-center justify-between h-20 px-4 bg-gray-700 md:px-8 xl:px-12">
+    class="flex items-center justify-between h-20 px-4 bg-gray-100 dark:bg-gray-700 md:px-8 xl:px-12">
 
     <button 
-    type="button" 
-    label="module navigation"
-    class="flex items-center justify-center w-12 h-12 xl:hidden" 
-    @click="displayPane()">
+        type="button" 
+        label="module navigation"
+        class="flex items-center justify-center w-12 h-12 xl:hidden" 
+        @click="NavPane.displayPane()"
+        @keyup.escape="NavPane.hidePane()">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
         </svg>
     </button>
 
-    <a class="flex items-center ml-4" href="/">
-        <svg class="w-8 h-8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-            <path class="text-yellow-700" d="M24 12c0 6.623-5.377 12-12 12S0 18.623 0 12h24Z" fill="currentColor"/>
-            <path class="text-blue-400" d="M0 12C0 5.377 5.377 0 12 0s12 5.377 12 12H0Z" fill="currentColor"/>
+    <a class="flex items-center" href="/">
+        <svg class="w-20 h-20" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" clip-rule="evenodd" viewBox="0 0 64 64">
+            <path fill="currentColor" class="text-pink-500" d="M29.978 8.477a2 2 0 0 1 1.998-1.999l.002.001c14.074 0 25.5 11.426 25.5 25.5 0 2.43-.34 4.782-.977 7.01a.963.963 0 0 1-1.404.561c-.359-.204-.748-.429-1.062-.611a.964.964 0 0 1-.456-1.058 22.346 22.346 0 0 0 .587-5.902c-.191-6.044-2.832-11.426-6.922-15.266a21.197 21.197 0 0 0-13.266-5.706v2.169c4.351.651 8.203 2.714 11.004 5.799 3.12 3.435 5.025 8.007 4.784 13.004-.032.658-.228 1.825-.4 2.748a.97.97 0 0 1-1.444.682c-.445-.255-.927-.534-1.28-.738a.972.972 0 0 1-.485-.886c.027-.533.058-1.312.034-1.806-.186-3.844-1.951-7.219-4.594-9.619-2.062-1.873-4.715-3.058-7.619-3.335v11.824l10.144 5.856.01-.018 5.198 3-.01.02 1.766 1.019.011-.019 2.24 1.294a2 2 0 0 1 .741 2.717c-4.418 7.624-12.664 12.761-22.1 12.761-7.173 0-13.658-2.968-18.293-7.743a.994.994 0 0 1 .225-1.547c.342-.202.712-.416 1.017-.592a1 1 0 0 1 1.19.143 22.551 22.551 0 0 0 5.609 3.871c3.091 1.504 6.581 2.28 10.252 2.172 4.253-.126 8.171-1.501 11.453-3.725a21.156 21.156 0 0 0 5.743-5.817l-1.994-1.152a18.324 18.324 0 0 1-4.93 4.375c-2.999 1.807-6.515 2.848-10.272 2.681-2.874-.128-5.566-.877-7.925-2.183a18.322 18.322 0 0 1-3.174-2.222 1.033 1.033 0 0 1 .169-1.673c.424-.249.882-.514 1.232-.715.346-.2.776-.183 1.106.043.725.49 1.496.916 2.304 1.274 1.917.849 4.054 1.243 6.288 1.143 2.786-.123 5.316-1.119 7.412-2.65a12.832 12.832 0 0 0 2.868-2.914l-10.28-5.935v-.025L12.616 45.467a2 2 0 0 1-2.715-.703 25.506 25.506 0 0 1-3.423-12.785c0-11.903 8.173-21.912 19.21-24.717a1.04 1.04 0 0 1 1.283 1.014c.007.375.007.773.007 1.107 0 .465-.307.875-.754 1.006a22.254 22.254 0 0 0-9.779 6.056 21.632 21.632 0 0 0-5.891 15.534 21.292 21.292 0 0 0 1.18 6.35c.293.846.641 1.664 1.038 2.454l1.994-1.151a17.054 17.054 0 0 1-.571-1.658c-.547-1.901-.839-3.911-.745-5.995.21-4.633 2.037-8.813 5.028-11.907 1.981-2.049 4.426-3.649 7.166-4.58a1.016 1.016 0 0 1 1.328.965c.006.486.006 1.011.006 1.41 0 .393-.226.751-.581.92a14.45 14.45 0 0 0-4.915 3.937c-2.03 2.521-3.134 5.77-2.976 9.255.068 1.493.413 2.907.927 4.228.077.199.16.395.247.587l10.298-5.945V8.477Z"/>
+            <circle class="text-pink-500" cx="182.979" cy="118.979" r="18.021" fill="none" stroke="currentColor" stroke-width="6" transform="matrix(-.33294 0 0 .33294 92.898 -7.634)"/>
         </svg>
-        <span class="ml-4 text-sm font-medium tracking-widest uppercase">Flight Plan</span>
     </a>
-    {{ global.ThemeToggle() }} 
+    {{ global.ThemeToggle() }}
 </header>

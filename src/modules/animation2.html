@@ -1,0 +1,26 @@
+{% set durations = tw.global.transitionDuration %}
+{% set durationsListLength = durations | length %}
+{% set easings = tw.global.transitionTimingFunction %}
+
+<div x-data="{ durations: {{ durations|dump }}, currentDuration: '' }" x-init="Animation.getData(durations)" class="">
+
+  <fieldgroup class="grid grid-cols-12 gap-4 py-4">
+    {% for key, value in durations %}
+      <button @click="`Animation.setDuration( {{ key }} )`" data-key="{{ key }}" data-value="{{ value }}"
+      class="flex justify-center col-span-2 px-3 py-2 text-white bg-blue-600 rounded-md shadow-lg outline-none focus:ring-4 active:scale-90">
+        <span class="text-sm">{{ key }}</span>
+      </button>
+    {% endfor %}
+  </fieldgroup>
+
+  <div
+    x-data="{ isPlaying: false }"
+    class="relative w-full h-48 bg-gray-800">
+    <button
+      @click="isPlaying = !isPlaying"
+      type="button">Play</button>
+    <div
+      :class="{'right-0': isPlaying ,'right-full': !isPlaying }"
+      class="absolute w-48 h-48 transition bg-pink-500"></div>
+
+  </div>

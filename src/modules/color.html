@@ -17,26 +17,23 @@
         </div>
         
         <ul class="p-2 text-xs">
-          <li x-data="{ css: 'bg-{{key}}' }">
+          <li x-data="{ css: 'bg-{{key}}', contentType: 'color' }">
             <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
-              type="button" 
-              @click="$clipboard(css)">
+              type="button" @click="Clipboard.setContent(css, $clipboard, contentType)">
               <span class="uppercase">CSS:</span>
-              <span class="ml-4 font-mono" x-text="css"></span>
+              <span class="ml-4 font-mono" x-text="contentType"></span>
             </button>
           </li>
-          <li x-data="{ hex: '{{value}}' }">
+          <li x-data="{ hex: '{{value}}', contentType: 'color'  }">
             <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
-              type="button" 
-              @click="$clipboard(hex)">
+              type="button" @click="Clipboard.setContent(hex, $clipboard, contentType)">
               <span class="uppercase">HEX:</span>
               <span class="ml-4 font-mono" x-text="hex"></span>
             </button>
           </li>
-          <li x-data="{ rgb: '{{ value | hexToRgb() }}' }">
+          <li x-data="{ rgb: '{{ value | hexToRgb() }}', contentType: 'color'  }">
             <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100" 
-              type="button" 
-              @click="$clipboard(rgb)">
+              type="button" @click="Clipboard.setContent(rgb, $clipboard, contentType)">
               <span class="uppercase">RGB:</span>
               <span class="ml-4 font-mono" x-text="rgb"></span>
             </button>
@@ -91,26 +88,23 @@
                 </div>
 
                 <ul class="p-2 text-xs">
-                  <li x-data="{ css: 'bg-{{key}}-{{subkey}}' }" class="">
+                  <li x-data="{ css: 'bg-{{key}}-{{subkey}}', contentType: 'color' }" class="">
                     <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
-                      type="button" 
-                      @click="Clipboard.setContent(css, $clipboard)">
+                      type="button" @click="Clipboard.setContent(css, $clipboard, contentType)">
                       <span class="uppercase">CSS:</span>
                       <span class="ml-4 font-mono" x-text="css"></span>
                     </button>
                   </li>
-                  <li x-data="{ hex: '{{subvalue}}' }" class="">
+                  <li x-data="{ hex: '{{subvalue}}', contentType: 'color' }" class="">
                     <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
-                      type="button" 
-                      @click="Clipboard.setContent(hex, $clipboard)">
+                      type="button" @click="Clipboard.setContent(hex, $clipboard, contentType)"> 
                       <span class="uppercase">HEX:</span>
                       <span class="ml-4 font-mono" x-text="hex"></span>
                     </button>
                   </li>
-                  <li x-data="{ rgb: '{{ subvalue | hexToRgb() }}' }" class="">
+                  <li x-data="{ rgb: '{{ subvalue | hexToRgb() }}', contentType: 'color' }" class="">
                     <button 
-                      type="button"
-                      @click="Clipboard.setContent(rgb, $clipboard)" 
+                      type="button" @click="Clipboard.setContent(rgb, $clipboard, contentType)"
                       class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100">
                       <span class="uppercase">RGB:</span>
                       <span class="ml-4 font-mono" x-text="rgb"></span>

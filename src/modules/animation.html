@@ -69,10 +69,13 @@
 
   <div class="w-full mt-16">
     <template x-for="(easeKey, easeIndex) in Object.keys( {{easings|dump}} )" :key="easeIndex">
-      <div class="flex items-center w-full mt-16">
+      <div 
+        x-data="{ isPlaying: false }"
+        class="flex items-center w-full mt-16">
         <h3 class="{% if value === default and key !== 'DEFAULT' %}default {% endif %} w-40 px-2 py-1 font-mono text-center bg-gray-800 border border-gray-900 rounded" x-text="`ease-${easeKey}`"></h3>
         <div class="">
-          <button 
+          <button
+            @click="isPlaying = !isPlaying"
             type="button"
             class="flex items-center justify-center w-10 h-10 ml-8 border-4 border-gray-400 rounded hover:border-blue-500">
             <svg class="text-gray-400 ui-icon play hover:text-blue-500" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,15 +83,10 @@
             </svg>
           </button>
         </div>
-        <span class="relative block w-full h-4 ml-8 bg-gray-100 rounded dark:bg-gray-600">
+        <span class="relative block w-full h-4 ml-16 bg-gray-100 rounded dark:bg-gray-600">
           <span
-            {# :style="{
-                  transitionTimingFunction: ${value},
-                  transitionDuration: ${selectedDuration},
-                  transitionDelay: ${enableDelay} ? ${selectedDelay} : '0s'
-                }" #}
-            
-            class="absolute block w-12 h-12 p-2 transition-all bg-gray-700 ease -top-4">
+            :class="{ 'right-full': !isPlaying, 'right-0' : isPlaying }"
+            class="absolute block w-12 h-12 p-2 transition-all bg-gray-700 right-full ease -top-4">
             <span class="block w-full h-full bg-blue-500 rounded"></span>
           </span>
         </span>
@@ -110,7 +108,6 @@
       search: '',
       value: config.value,
       selectedDurationKey: Object.keys(config.data)[0],
-      //selectedDelayKey: Object.keys(config.easings)[0],
       enableDelay: false,
 
       closeListbox: function () {
@@ -181,12 +178,6 @@
           .data
           .duration[this.selectedDurationKey]
       },
-     // selectedDelay() {
-     //   return this
-     //     .data
-     //     .delay[this.selectedDelayKey]
-     // }
-
       toggleListboxVisibility: function () {
         if (this.open) 
           return this.closeListbox()

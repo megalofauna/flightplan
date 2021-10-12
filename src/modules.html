@@ -14,14 +14,14 @@ date: 2021-07-02
 {% endmacro %}
 
 <div 
-    x-init="getTotalItems( {{moduleList|dump}} )"
+    x-init="NavPane.getTotalItems( {{moduleList|dump}} )"
     class="grid grid-cols-12">
 
-    <div class="min-h-screen col-span-12 bg-gray-700 3xl:col-span-10">
+    <div class="min-h-screen col-span-12 bg-gray-100 dark:bg-gray-700 3xl:col-span-10">
 
         {% for module in moduleList %}
-            <div id="{{ module.id }}" x-transition.opacity.duration.150ms x-show="moduleIndex === {{ loop.index0 }}"
-                :class="{ 'opacity-100': moduleIndex === {{ loop.index0 }}, 'opacity-0': moduleIndex !== {{ loop.index0 }}}"
+            <div id="{{ module.id }}" x-transition.opacity.duration.150ms x-show="NavPane.moduleIndex === {{ loop.index0 }}"
+                :class="{ 'opacity-100': NavPane.moduleIndex === {{ loop.index0 }}, 'opacity-0': NavPane.moduleIndex !== {{ loop.index0 }}}"
                 class="h-full flex flex-col justify-between transform duration-300 transition-opacity ease col-span-12 p-4 module md:p-8 xl:p-12 2xl:col-span-10 module {% if loop.first %}active {% else %}inactive {% endif %}">
 
                 {{get(module.id)}}
@@ -38,9 +38,9 @@ date: 2021-07-02
                 {% set lastItem = moduleList[lastIndex].id %}
 
                 <nav class="flex mt-16">
-                    <div x-ref="display-prev-module" x-show="moduleIndex - 1 > -1" class="w-1/2 mr-auto">
+                    <div x-ref="display-prev-module" x-show="NavPane.moduleIndex - 1 > -1" class="w-1/2 mr-auto">
                         <a class="flex flex-col items-start w-full p-4 transition-colors duration-300 ease-in-out rounded md:p-8 xl:p-16 group hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:bg-opacity-50"
-                            @click="displayPrev()" href="#{{ prevItem | safe }}">
+                            @click="NavPane.displayPrev()" href="#{{ prevItem | safe }}">
                             <span class="flex items-center text-xs font-medium md:text-sm xl:text-md">
                                 <svg class="inline-block w-5 h-5 mr-2 text-gray-600 group-hover:text-blue-500"
                                     fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -56,11 +56,11 @@ date: 2021-07-02
                     </div>
                     <div 
                         x-ref="display-next-module" 
-                        x-show="moduleIndex + 1 < moduleTotal" 
+                        x-show="NavPane.moduleIndex + 1 < NavPane.moduleTotal" 
                         class="w-1/2 ml-auto">
                         <a
                             class="flex flex-col items-end w-full p-4 transition-colors duration-300 ease-in-out rounded md:p-8 xl:p-16 group hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:bg-opacity-50"
-                            @click="displayNext()" href="#{{ nextItem | safe }}">
+                            @click="NavPane.displayNext()" href="#{{ nextItem | safe }}">
                             <span class="flex items-center text-xs font-medium md:text-sm xl:text-md">
                                 Next
                                 <svg class="inline-block w-5 h-5 ml-2 text-gray-600 group-hover:text-blue-500"

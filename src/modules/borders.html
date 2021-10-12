@@ -1,14 +1,60 @@
-{# ---
-title: Borders
-date: 2020-09-01
-description: This collection consists of 128 color swatches organized into 12 color families.
-themeColor: red
-tags:
-  - module
-iconPath: <path fill="currentColor" d="M2.529 2A.53.53 0 002 2.53V17.5a.5.5 0 00.5.5H3a.5.5 0 00.5-.5V2.518A.518.518 0 002.982 2h-.453zM8 2a1 1 0 00-1 1v14a1 1 0 001 1h1.44a1 1 0 001-.996l.056-14a1 1 0 00-1-1.004H8zm7 0a1 1 0 00-1 1v14a1 1 0 001 1h2a1 1 0 001-1V3a1 1 0 00-1-1h-2z"/>
---- #}
+<h2 class="mt-8 text-xl font-bold text-gray-600 md:text-2xl xl:text-3xl" id="size-intervals">Borders</h2>
+<h4 class="mt-4 text-lg text-gray-600">Usage</h4>
+<p class="max-w-screen-sm mt-2 text-xs text-gray-500 md:text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore illo dolores facere magnam maxime atque eum necessitatibus enim.
+</p>
 
+<h3 class="mt-12">Border radius</h3>
+<ul
+  x-data="{ units: {{ tw.global.borderRadius | dump }} }"
+  x-init=""
+  class="grid grid-cols-8 gap-4 lg:gap-8">
+  {% for key, value in tw.global.borderRadius %}
+    <li class="overflow-hidden relative h-0 col-span-2 md:col-span-1 bg-gray-200 dark:bg-gray-800 dark:bg-opacity-50 rounded-{{ key }} border border-pink-300 dark:border-pink-500" style="padding-top: 100%"></li>
+  {% endfor %}
+</ul>
 
+<h3 class="mt-24">Border width</h3>
+<div
+  x-data="{ units: {{ tw.global.borderWidth | dump }} }"
+  x-init=""
+  class="relative w-full overflow-hidden bg-gray-200 bg-opacity-50 border border-gray-300 rounded-lg dark:border-gray-800 dark:bg-opacity-50 dark:bg-gray-800 h-96">
+  <div class="absolute transform -translate-x-1/2 -top-48 left-1/2">
+    <svg class="w-256 h-256" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 160 160">
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="12" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="16" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="20" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="24" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="28" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="32" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="36" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="40" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="44" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="48" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="52" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="56" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="60" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="64" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="68" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="72" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="76" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="80" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="84" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="88" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="92" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="96" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="100" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="104" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="108" fill="none" stroke-width="0.125" stroke="currentColor"/>
+      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="112" fill="none" stroke-width="0.125" stroke="currentColor"/>
+    </svg>
+    <svg class="absolute inset-0 w-256 h-256"  stroke-width="1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 160 160">
+      {% set radii = 8 %}
+      {% for key, value in tw.global.borderWidth %}
+          {% set increment = 4 %}
+        <circle class="text-pink-500"cx="80" cy="80" r="{{ radii + ((increment * 2) * (loop.index0 + 1)) }}" fill="{% if loop.first %}rgba(0,0,0,.2){% else %}none{% endif %}" stroke-width="{{ value | replace('px', '') / 6 }}" stroke="currentColor"/>
+      {% endfor %}
+    </svg>
+  </div>
+  <div class="absolute transform bottom-16 -translate-1/2 left-1/2"></div>
 
-
-  
+</div>
