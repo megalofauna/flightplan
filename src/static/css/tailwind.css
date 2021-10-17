@@ -279,6 +279,22 @@ input[type="range"]:focus {
   }
 }
 
+@keyframes ANIMATE-HORZ {
+  0%, 100% {
+    right: calc(100% - 44px)
+  }
+  50% {
+    right: calc(0%)
+  }
+}
+
+.animate-horz {
+  right: calc(100% - 44px);
+}
+.animate-active {
+  animation: ANIMATE-HORZ infinite;
+}
+
 .module.active {
   opacity: 0;
   display: block;

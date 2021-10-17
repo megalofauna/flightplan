@@ -89,27 +89,30 @@ function flightplan(config) {
         this.hidePane()
       }
     },
+
     Animation: {
-      currentDuration: '',
-      selectedDuration: '',
-      getData: function(data) {
-        console.log(data)
-        this.setDuration()
+      selectedDuration: 75,
+      init: function () {
+        console.log('inited');
       },
       playAnimation: function () {
-
+        this.isPlaying = true
       },
+      // toggleLoopAnimation: function (ref) {
+      //   ref.style.
+      // },
       stopAnimation: function () {
 
       },
-      setDuration: function (selectedDuration) {
-          currentDuration = selectedDuration
+      setDuration: function (duration) {
+        this.selectedDuration = duration
       },
       stopAllAnimations: function () {
 
       }
 
     },
+
     Utility: {
     },
 

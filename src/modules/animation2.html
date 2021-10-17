@@ -1,26 +1,103 @@
+{% from "../_includes/components/ButtonGroup.html" import ButtonGroup %}
+
 {% set durations = tw.global.transitionDuration %}
 {% set durationsListLength = durations | length %}
 {% set easings = tw.global.transitionTimingFunction %}
 
-<div x-data="{ durations: {{ durations|dump }}, currentDuration: '' }" x-init="Animation.getData(durations)" class="">
-
-  <fieldgroup class="grid grid-cols-12 gap-4 py-4">
+<div 
+  x-data="Transitions()"
+  x-init="init()">
+  <fieldgroup class="grid w-full grid-cols-12 gap-2 py-2 md:w-1/2 place-content-start">
     {% for key, value in durations %}
-      <button @click="`Animation.setDuration( {{ key }} )`" data-key="{{ key }}" data-value="{{ value }}"
-      class="flex justify-center col-span-2 px-3 py-2 text-white bg-blue-600 rounded-md shadow-lg outline-none focus:ring-4 active:scale-90">
-        <span class="text-sm">{{ key }}</span>
+      <button
+      @click="setDuration( {{key|dump}} )"
+      class="h-10 col-span-4 bg-gray-900 border-2 border-gray-900 rounded outline-none bg-opacity-80 bg-gradient-to-b focus:ring-4">
+        <span class="text-xs md:text-sm">{{ value }}</span>
       </button>
     {% endfor %}
   </fieldgroup>
 
-  <div
-    x-data="{ isPlaying: false }"
-    class="relative w-full h-48 bg-gray-800">
-    <button
-      @click="isPlaying = !isPlaying"
-      type="button">Play</button>
-    <div
-      :class="{'right-0': isPlaying ,'right-full': !isPlaying }"
-      class="absolute w-48 h-48 transition bg-pink-500"></div>
+  {# <div class="flex justify-between">
+    <div class="w-1/4 py-4 pr-4">
+      <div class="relative h-48 overflow-hidden bg-gray-800 rounded-2xl">
 
-  </div>
+        <div
+          class="absolute w-2 h-2 origin-center transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full top-1/2 left-1/2">
+          <div class="absolute w-2 h-32 origin-top-left transform rotate-90 bg-gray-200 rotate"></div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div> #}
+  <section class="">
+    {% for key, value in easings %}
+
+      <div x-data="{ isPlaying: false }" class="mt-12">
+    <span x-text="isPlaying"></span>
+    <span x-text="currentDuration"></span>
+        <div @click="isPlaying = !isPlaying"
+        class="relative flex items-center flex-grow w-full h-8 bg-gray-800 border border-gray-800 rounded-md shadow-inner bg-opacity-30 hover:cursor-pointer lg:order-last">
+          {# <div x-text="isPlaying"></div> #}
+          <span class="absolute inset-0 block w-full h-8 text-xs leading-8 text-center text-gray-400">{{ value }}</span>
+          <div
+          :style="{ animationDuration: `${currentDuration}ms`,  animationTimingFunction: `{{ key }}`, animationIterationCount: `${currentIterationCount}` }"
+          :class="{ 'animate-active' : isPlaying }"
+          class="absolute animate-horz transform top-1/2 -translate-y-1/2 w-10 h-6 rounded-sm transition-all bg-blue-500 bg-opacity-75 ease-{{ key }}"></div>
+        </div>
+        <div class="flex justify-between font-mono text-white">
+          <div class="text-sm">
+            <span class="px-2 py-1 text-center bg-opacity-25 border border-gray-800 rounded bg-fp-primary ease-{{ key }}">ease-{{ key }}</span>
+            {# <span>{{ value }}</span> #}
+          </div>
+
+          <div class="">
+            <fieldgroup>
+              <button
+                @click="playAnimation()"
+                type="button">Play</button>
+              <button
+                @click="setIterationCount('infinite')"
+                type="button">Loop</button>
+            </fieldgroup>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+</div>
+
+<script>
+  function Transitions() {
+    return {
+      isPlaying: false,
+      currentDuration: 150,
+      currentIterationCount: 1,
+      init() {
+        this.setDuration(150)
+        this.setIterationCount(1)
+      },
+      startAnimation() {
+        this.isPlaying = true
+      },
+      stopAnimation() {
+        this.isPlaying = false
+      },
+      playAnimation() {
+        this.setIterationCount(1)
+        this.startAnimation()
+        setTimeout(()=> {
+          this.stopAnimation()
+        }, this.currentDuration)
+      },
+      setDuration(duration) {
+        this.currentDuration = duration
+      },
+      setIterationCount(count) {
+        this.currentIterationCount = count
+        
+      }
+    }
+  }
+</script>
