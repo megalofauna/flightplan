@@ -1,3 +1,5 @@
+{% from "../_includes/components/site.html" import ButtonGroup, Capsule, Button %}
+
 {% set moduleList = modules.sections %}
 
 <!DOCTYPE html>
@@ -25,12 +27,12 @@
     x-cloak
     x-init="NavPane.hidePane()"
 
-    class="[ text-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-gray-200 ]
-           [ relative grid grid-cols-12 ]">
+    class="[ text-gray-500 bg-gray-100 ]
+           [ relative grid grid-cols-12 min-h-screen ]">
  
     <aside
       :class="{ '-translate-x-full xl:translate-x-0': NavPane.navPaneVisible === false, 'translate-x-0': NavPane.navPaneVisible === true }"
-      class="fixed z-20 block w-64 min-h-screen transition duration-300 ease-in-out transform bg-gray-800 bg-opacity-80 backdrop-blur-2xl md:w-96 xl:w-auto xl:relative xl:shadow-none xl:col-span-2">
+      class="fixed z-20 block w-64 min-h-screen transition duration-300 ease-in-out transform backdrop-blur-2xl md:w-96 xl:w-auto xl:relative xl:shadow-none xl:col-span-2">
 
       {% include "../_includes/blocks/module-navigation-panel.html" %}
 
@@ -50,7 +52,7 @@
         x-transition:leave="transition ease-in duration-1000" 
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0" 
-        class="fixed w-64 p-4 text-xs bg-gray-900 border-l-8 border-green-600 top-8 right-4"></div>
+        class="fixed w-64 p-4 text-xs border-l-8 border-green-600 top-8 right-4"></div>
 
       {{content|safe}}
 

@@ -20,6 +20,7 @@ module.exports = {
       },
       colors: {
         gray: colors.coolGray,
+        green: colors.teal,
           // 50: '#fafafa',
           // 100: '#f4f4f5',
           // 200: '#e4e4e7',
@@ -36,6 +37,9 @@ module.exports = {
           "primary": colors.blue['500'],
           "primary-light": colors.blue['300'],
         }
+      },
+      borderWidth: {
+        3: '3px'
       },
       boxShadow: {
         // solid: '0 0 0 4px #202023',
@@ -73,6 +77,9 @@ module.exports = {
       height: {
         192: "48rem",
         256: "64rem"
+      },
+      outline: {
+        'border-3': "colors.coolGray[900] 3px solid"
       },
       width: {
         192: "48rem",

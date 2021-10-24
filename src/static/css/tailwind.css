@@ -287,6 +287,21 @@ input[type="range"]:focus {
     right: calc(0%)
   }
 }
+.radial-gradient {
+  background-image: radial-gradient(ellipse at 50% 100%, #fff 0%, #42BEAF 50%, transparent 100%);
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.capsule-gradient {
+  /* background-image: radial-gradient(ellipse at 50% 125%, #fff -10%, #42BEAF 25%, transparent 125%); */
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+}
 
 .animate-horz {
   right: calc(100% - 44px);
@@ -299,6 +314,15 @@ input[type="range"]:focus {
   opacity: 0;
   display: block;
   animation: TO-ACTIVE 450ms forwards;
+}
+
+.mirror-blur {
+  z-index: 10;
+}
+.mirror-blur::before {
+  content: "";
+  z-index: 0;
+  @apply w-full h-full absolute block bg-red-800 blur-xl;
 }
 
 /* .module.inactive {

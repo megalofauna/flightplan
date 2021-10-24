@@ -1,4 +1,3 @@
-4
 const lib = require("./src/static/js/lib");
 const yaml = require("js-yaml");
 const { DateTime } = require("luxon");

@@ -4,12 +4,14 @@ title: Navigations
 date: 2021-07-02
 ---
 
+{% from "components/site.html" import ModuleHeading, ModuleSectionHeading  %}
+
 {% set moduleList = modules.sections %}
 {% set currentIndex = 0 %}
 
 {% macro get(module) %}
-    <h2 id="{{ module }}"
-    class="pt-8 pb-2 text-sm font-semibold text-gray-600 uppercase border-b border-gray-500 module dark:text-gray-400">{{ module }}</h2>
+    {{ ModuleHeading(module) }}
+
     {% include["./modules/", module, ".html"] | join %}
 {% endmacro %}
 
@@ -17,7 +19,7 @@ date: 2021-07-02
     x-init="NavPane.getTotalItems( {{moduleList|dump}} )"
     class="grid grid-cols-12">
 
-    <div class="min-h-screen col-span-12 bg-gray-100 dark:bg-gray-700 3xl:col-span-10">
+    <div class="min-h-screen col-span-12 3xl:col-span-10">
 
         {% for module in moduleList %}
             <div id="{{ module.id }}" x-transition.opacity.duration.150ms x-show="NavPane.moduleIndex === {{ loop.index0 }}"

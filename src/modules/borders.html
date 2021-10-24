@@ -1,60 +1,202 @@
-<h2 class="mt-8 text-xl font-bold text-gray-600 md:text-2xl xl:text-3xl" id="size-intervals">Borders</h2>
-<h4 class="mt-4 text-lg text-gray-600">Usage</h4>
-<p class="max-w-screen-sm mt-2 text-xs text-gray-500 md:text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore illo dolores facere magnam maxime atque eum necessitatibus enim.
-</p>
+{% from "components/site.html" import ModuleSectionHeading,
+Capsule,
+DisplayValue,
+BoxSelectionResultDemo %}
 
-<h3 class="mt-12">Border radius</h3>
-<ul
-  x-data="{ units: {{ tw.global.borderRadius | dump }} }"
-  x-init=""
-  class="grid grid-cols-8 gap-4 lg:gap-8">
-  {% for key, value in tw.global.borderRadius %}
-    <li class="overflow-hidden relative h-0 col-span-2 md:col-span-1 bg-gray-200 dark:bg-gray-800 dark:bg-opacity-50 rounded-{{ key }} border border-pink-300 dark:border-pink-500" style="padding-top: 100%"></li>
-  {% endfor %}
-</ul>
+{# <span class="hidden">
+rounded-none	
+rounded-sm	
+rounded	
+rounded-md	
+rounded-lg	
+rounded-xl	
+rounded-2xl	
+rounded-3xl	
+rounded-full	
+rounded-t-none	border-top-left-radius: 0px;
+border-top-right-radius: 0px;
+rounded-t-sm	border-top-left-radius: 0.125rem;
+border-top-right-radius: 0.125rem;
+rounded-t	border-top-left-radius: 0.25rem;
+border-top-right-radius: 0.25rem;
+rounded-t-md	border-top-left-radius: 0.375rem;
+border-top-right-radius: 0.375rem;
+rounded-t-lg	border-top-left-radius: 0.5rem;
+border-top-right-radius: 0.5rem;
+rounded-t-xl	border-top-left-radius: 0.75rem;
+border-top-right-radius: 0.75rem;
+rounded-t-2xl	border-top-left-radius: 1rem;
+border-top-right-radius: 1rem;
+rounded-t-3xl	border-top-left-radius: 1.5rem;
+border-top-right-radius: 1.5rem;
+rounded-t-full	border-top-left-radius: 9999px;
+border-top-right-radius: 9999px;
+rounded-r-none	border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+rounded-r-sm	border-top-right-radius: 0.125rem;
+border-bottom-right-radius: 0.125rem;
+rounded-r	border-top-right-radius: 0.25rem;
+border-bottom-right-radius: 0.25rem;
+rounded-r-md	border-top-right-radius: 0.375rem;
+border-bottom-right-radius: 0.375rem;
+rounded-r-lg	border-top-right-radius: 0.5rem;
+border-bottom-right-radius: 0.5rem;
+rounded-r-xl	border-top-right-radius: 0.75rem;
+border-bottom-right-radius: 0.75rem;
+rounded-r-2xl	border-top-right-radius: 1rem;
+border-bottom-right-radius: 1rem;
+rounded-r-3xl	border-top-right-radius: 1.5rem;
+border-bottom-right-radius: 1.5rem;
+rounded-r-full	border-top-right-radius: 9999px;
+border-bottom-right-radius: 9999px;
+rounded-b-none	border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;
+rounded-b-sm	border-bottom-right-radius: 0.125rem;
+border-bottom-left-radius: 0.125rem;
+rounded-b	border-bottom-right-radius: 0.25rem;
+border-bottom-left-radius: 0.25rem;
+rounded-b-md	border-bottom-right-radius: 0.375rem;
+border-bottom-left-radius: 0.375rem;
+rounded-b-lg	border-bottom-right-radius: 0.5rem;
+border-bottom-left-radius: 0.5rem;
+rounded-b-xl	border-bottom-right-radius: 0.75rem;
+border-bottom-left-radius: 0.75rem;
+rounded-b-2xl	border-bottom-right-radius: 1rem;
+border-bottom-left-radius: 1rem;
+rounded-b-3xl	border-bottom-right-radius: 1.5rem;
+border-bottom-left-radius: 1.5rem;
+rounded-b-full	border-bottom-right-radius: 9999px;
+border-bottom-left-radius: 9999px;
+rounded-l-none	border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+rounded-l-sm	border-top-left-radius: 0.125rem;
+border-bottom-left-radius: 0.125rem;
+rounded-l	border-top-left-radius: 0.25rem;
+border-bottom-left-radius: 0.25rem;
+rounded-l-md	border-top-left-radius: 0.375rem;
+border-bottom-left-radius: 0.375rem;
+rounded-l-lg	border-top-left-radius: 0.5rem;
+border-bottom-left-radius: 0.5rem;
+rounded-l-xl	border-top-left-radius: 0.75rem;
+border-bottom-left-radius: 0.75rem;
+rounded-l-2xl	border-top-left-radius: 1rem;
+border-bottom-left-radius: 1rem;
+rounded-l-3xl	border-top-left-radius: 1.5rem;
+border-bottom-left-radius: 1.5rem;
+rounded-l-full	border-top-left-radius: 9999px;
+border-bottom-left-radius: 9999px;
+rounded-tl-none	border-top-left-radius: 0px;
+rounded-tl-sm	border-top-left-radius: 0.125rem;
+rounded-tl	border-top-left-radius: 0.25rem;
+rounded-tl-md	border-top-left-radius: 0.375rem;
+rounded-tl-lg	border-top-left-radius: 0.5rem;
+rounded-tl-xl	border-top-left-radius: 0.75rem;
+rounded-tl-2xl	border-top-left-radius: 1rem;
+rounded-tl-3xl	border-top-left-radius: 1.5rem;
+rounded-tl-full	border-top-left-radius: 9999px;
+rounded-tr-none	border-top-right-radius: 0px;
+rounded-tr-sm	border-top-right-radius: 0.125rem;
+rounded-tr	border-top-right-radius: 0.25rem;
+rounded-tr-md	  
+rounded-tr-lg	  
+rounded-tr-xl	  
+rounded-tr-2xl	
+rounded-tr-3xl	
+rounded-tr-full	
+rounded-br-none	
+rounded-br-sm	  
+rounded-br	    
+rounded-br-md	  
+rounded-br-lg	  
+rounded-br-xl	  
+rounded-br-2xl	
+rounded-br-3xl	
+rounded-br-full	
+rounded-bl-none	
+rounded-bl-sm	
+rounded-bl	  
+rounded-bl-md	
+rounded-bl-lg	
+rounded-bl-xl	  
+rounded-bl-2xl	
+rounded-bl-3xl	
+rounded-bl-full	
+border-t-4
+border-r-4
+border-b-4
+border-l-4
+border-r-fp-primary
+</span> #}
 
-<h3 class="mt-24">Border width</h3>
-<div
-  x-data="{ units: {{ tw.global.borderWidth | dump }} }"
-  x-init=""
-  class="relative w-full overflow-hidden bg-gray-200 bg-opacity-50 border border-gray-300 rounded-lg dark:border-gray-800 dark:bg-opacity-50 dark:bg-gray-800 h-96">
-  <div class="absolute transform -translate-x-1/2 -top-48 left-1/2">
-    <svg class="w-256 h-256" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 160 160">
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="12" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="16" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="20" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="24" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="28" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="32" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="36" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="40" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="44" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="48" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="52" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="56" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="60" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="64" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="68" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="72" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="76" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="80" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="84" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="88" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="92" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="96" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="100" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="104" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="108" fill="none" stroke-width="0.125" stroke="currentColor"/>
-      <circle class="text-gray-800 opacity-10 dark:opacity-40" cx="80" cy="80" r="112" fill="none" stroke-width="0.125" stroke="currentColor"/>
-    </svg>
-    <svg class="absolute inset-0 w-256 h-256"  stroke-width="1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 160 160">
-      {% set radii = 8 %}
-      {% for key, value in tw.global.borderWidth %}
-          {% set increment = 4 %}
-        <circle class="text-pink-500"cx="80" cy="80" r="{{ radii + ((increment * 2) * (loop.index0 + 1)) }}" fill="{% if loop.first %}rgba(0,0,0,.2){% else %}none{% endif %}" stroke-width="{{ value | replace('px', '') / 6 }}" stroke="currentColor"/>
-      {% endfor %}
-    </svg>
+<section
+  x-data="myWidget( {{tw.global.borderRadius|dump}} )"
+  x-init="$watch('currentWidgetSelection', value => getCurrentWidgetSelection(value))"
+  class="py-6">
+
+  {{ ModuleSectionHeading('Border radius', 'https://tailwindcss.com/docs/border-radius') }}
+
+  <div class="flex flex-col items-center w-full mt-12 lg:flex-row lg:items-start lg:justify-between lg:space-x-12">
+    
+    {{ BoxSelectionResultDemo() }}
+    
+    <ul class="grid w-full grid-cols-12 gap-6 lg:w-9/12 lg:gap-8 xl:gap-12 4xl:lg-10/12">
+      <template x-for="[id, value] in Object.entries(rawData)" :key="id">
+        <li class="col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 4xl:col-span-2">
+          <div
+            :class="hasCurrentSelection ? `${currentClass}-${id}` : `rounded-${id}`"
+            class="relative h-16 bg-gray-200 border-2 border-gray-300 ease" style="padding-top: 100%">
+            <div class="absolute text-sm text-center transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+              <span x-text="value" class="text-bold"></span>
+            </div>
+          </div>
+          <button
+            @click="$clipboard(`${currentClass}-${id}`)" 
+            class="relative block w-full h-8 px-2 py-1 mx-auto mt-3 font-mono text-sm text-center transition-colors duration-200 bg-gray-100 border border-blue-200 rounded hover:bg-blue-500 hover:text-white 3xl:w-11/12 group ease" type="button">
+            <span x-text="hasCurrentSelection ? `${currentClass}-${id}` : `rounded-${id}`"></span>
+            <span x-text="'copy'" class="absolute px-2 py-1 leading-4 text-gray-600 transition-all duration-200 -translate-x-1/2 rounded opacity-0 -top-4 bg-gray-50 left-1/2 group-hover:opacity-100 group-hover:-top-12">Copy</span>
+          </button>
+        </li>
+      </template>
+
+    </ul>
   </div>
-  <div class="absolute transform bottom-16 -translate-1/2 left-1/2"></div>
+</section>
 
-</div>
+<script>
+  function myWidget(data) {
+    return {
+      currentWidgetSelection: null,
+      hasCurrentSelection: false,
+      sectionPrefix: 'rounded',
+      currentInfix: '',
+      currentClass: '',
+      rawData: data,
+      setCurrentClass() {
+        this.currentClass = `${this.sectionPrefix}-${this.currentInfix}`
+      },
+      getCurrentWidgetSelection(selection) {
+        this.hasCurrentSelection = true
+        this.currentWidgetSelection = selection
+        this.setCurrentInfix(selection)
+        this.setCurrentClass()
+      },
+      setCurrentInfix(selection) {
+        this.currentInfix = selection
+      },
+      clearCurrentWidgetSelection() {
+        this.hasCurrentSelection = false
+        this.currentInfix = ''
+        this.setCurrentClass('')
+      }
+    }
+  }
+</script>
+
+<section
+  x-data=""
+  x-init=""
+  class="">
+  
+  {{ ModuleSectionHeading('Border width', 'https://tailwindcss.com/docs/border-width') }}
+  
+  </section>
