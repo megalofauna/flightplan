@@ -127,6 +127,55 @@
     </div>
 {% endmacro %}
 
+{% macro typescaleDemo(key, value, lineHeightDisplay) %}
+    <p class="pb-3 truncate text-{{ key }} leading-{{ lineHeightDisplay }}">Flight plan</p>
+    <div class="flex mt-2 overflow-hidden">
+        <span class="px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">text-{{ key }}</span>
+        <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 bg-gray-50 border-l-none">
+            {{ value[0] }} / 
+            <span class="text-xs">
+                {{- value[0] | stripAlpha | remToPx -}}
+            </span>
+        </span>
+        <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 rounded-r bg-gray-50 border-l-none">
+            Default line-height: {{ lineHeightDisplay -}}
+        </span>
+    </div>
+{% endmacro %}
+
+{% macro fontweightDemo(key, value) %}
+    <div class="flex items-center">
+        <div class="flex overflow-hidden">
+            <span class="w-32 px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">text-{{ key }}</span>
+            <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 rounded-r bg-gray-50 border-l-none">{{ value }}</span>
+        </div>
+        <p class="ml-4 text-3xl text-gray-500 font-{{ key }} leading-none {% if not loop.first %} {% endif %}">{{ key }}</p>
+    </div>
+{% endmacro %}
+
+{% macro letterSpacingDemo(key, value) %}
+    <div class="flex items-center">
+        <div class="flex overflow-hidden">
+            <span class="w-40 px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">tracking-{{ key }}</span>
+            <span class="w-20 px-3 py-1 -ml-px font-mono text-xs text-right border border-gray-800 rounded-r bg-gray-50 border-l-none">{{ value }}</span>
+        </div>
+        <p class="tracking-{{ key }} ml-4 text-3xl font-semibold text-gray-500">Flight plan</p>
+    </div>
+{% endmacro %}
+
+{% macro lineHeightDemo(key, value, gradientStop) %}
+    <div class="flex flex-col justify-between col-span-12 p-4 bg-gray-100 border border-gray-200 rounded sm:col-span-6 lg:col-span-4 3xl:col-span-3 4xl:col-span-2">
+        <p class=" text-gray-400 text-lg leading-{{ key }}"
+        style="background-image: repeating-linear-gradient(to top, #60A5FA 0, #60A5FA 2px, transparent 1px, transparent {{ gradientStop }}); background-size: 100%; background-position: 100% 0, 0 0;"
+          >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatum alias velit distinctio.
+          </p>
+        <div class="flex mt-2">
+            <span class="w-40 px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">leading-{{ key }}</span>
+            <span class="w-20 px-3 py-1 -ml-px font-mono text-xs text-right border border-gray-800 rounded-r bg-gray-50 border-l-none">{{ value }}</span>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro marginDemo(key, value, edgeLength) %}
     <div class="inline-block pl-{{ key }} relative bg-red-50 border border-red-400 rounded-lg flex-grow-0">
         <span class="block w-{{ edgeLength }} h-{{ edgeLength }} bg-red-400 rounded-lg"></span>

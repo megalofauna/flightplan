@@ -363,6 +363,20 @@ input[type="range"]:focus {
   @apply w-full h-full absolute block bg-red-800 blur-xl;
 }
 
+.io-shadow {
+  box-shadow: 0 0 8px 6px rgba(0,0,0,.15)
+}
+
+/* .leading-demo {
+background: repeating-linear-gradient(
+      to bottom,
+      red 0,
+      red 1px,
+      transparent 1px,
+      transparent 1em
+    )
+} */
+
 /* .module.inactive {
   opacity: 1;
   display: none;
