@@ -1,0 +1,165 @@
+{% from "components/site.html" import
+padding,
+ModuleHeading,
+ModuleSectionHeading,
+Capsule,
+genericDemo,
+paddingDemo,
+marginDemo,
+DisplayValue,
+BoxSelectionResultDemo %}
+
+{% set sortedUnits = tw.global.spacing %}
+
+{{ ModuleHeading('spacing') }}
+
+{# <article
+    x-data=""
+    x-init=""
+    class="{{ padding() }}">
+
+  {{ ModuleSectionHeading('Generic spacing scale', 'https://tailwindcss.com/docs/border-radius') }}
+
+  <ul class="py-2 overflow-hidden border border-blue-100 md:py-3 xl:py-4 rounded-b-xl ">
+    {% for key, value in tw.global.spacing %}
+      <li class="p-4 md:px-6">
+        {{ genericDemo(key, value) }}
+      </li>
+    {% endfor %}
+  </ul>
+</article> #}
+
+<article
+    x-data="{ activeTab:  0, direction: '', uiColor: 'blue', property: 'p' }"
+    class="{{ padding() }}">
+
+  <div class="top-16">
+    {{ ModuleSectionHeading('Padding and margin', 'https://tailwindcss.com/docs/margin') }}
+
+    <div class="flex mt-4 space-x-16">
+
+      <div class="flex-grow w-1/2">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad doloremque provident possimus, fugiat eaque eum! Unde dolores quo inventore, cum, amet et ullam totam voluptas laboriosam, autem sunt maxime cupiditate.
+      </div>
+      <div class="flex flex-wrap items-start justify-between flex-shrink p-6 space-x-8 border border-gray-200 rounded-lg">
+        <fieldset class="flex flex-col items-center justify-between h-full text-sm">
+          <legend>
+            <span class="block px-4 rounded -mt-9 bg-gray-50">
+              Variant visualizer
+            </span>
+          </legend>
+          <button
+            @click="direction = ''"
+            :class="{ 'bg-gray-500 text-white border-gray-600 shadow-inset': direction === '', 'bg-gray-200 border-gray-300 text-gray-800 shadow-sm': direction !== '' }"
+            class="w-full h-10 mx-auto font-medium transition-colors duration-300 border border-opacity-25 rounded ease" type="button">All</button>
+          <span class="block w-1/2 h-px mx-auto border-b border-gray-200"></span>
+          <button
+            @click="direction = 't'"
+            :class="{ 'bg-gray-500 text-white border-gray-600 shadow-inset': direction === 't', 'bg-gray-200 border-gray-300 text-gray-800 shadow-sm': direction !== 't' }"
+            class="w-full h-10 mx-auto font-medium transition-colors duration-300 border border-opacity-25 rounded ease" type="button">Top</button>
+          <button
+            @click="direction = 'r'"
+            :class="{ 'bg-gray-500 text-white border-gray-600 shadow-inset': direction === 'r', 'bg-gray-200 border-gray-300 text-gray-800 shadow-sm': direction !== 'r' }"
+            class="w-full h-10 mx-auto font-medium transition-colors duration-300 border border-opacity-25 rounded ease" type="button">Right</button>
+          <button
+            @click="direction = 'b'"
+            :class="{ 'bg-gray-500 text-white border-gray-600 shadow-inset': direction === 'b', 'bg-gray-200 border-gray-300 text-gray-800 shadow-sm': direction !== 'b' }"
+            class="w-full h-10 mx-auto font-medium transition-colors duration-300 border border-opacity-25 rounded ease" type="button">Bottom</button>
+          <button
+            @click="direction = 'l'"
+            :class="{ 'bg-gray-500 text-white border-gray-600 shadow-inset': direction === 'l', 'bg-gray-200 border-gray-300 text-gray-800 shadow-sm': direction !== 'l' }"
+            class="w-full h-10 mx-auto font-medium transition-colors duration-300 border border-opacity-25 rounded ease" type="button">Left</button>
+        </fieldset>
+
+        <div>
+          <div class="w-48 h-48 padding-pattern-ghosted">
+            <div
+              :class="{ 'clip-none' : direction === '', 'clip-to-top' : direction === 't', 'clip-to-right' : direction === 'r', 'clip-to-bottom' : direction === 'b', 'clip-to-left' : direction === 'l' }"
+              class="w-48 h-48 transition-all duration-400 ease">
+              <div
+                :class="{ 'padding-pattern border-blue-400 bg-blue-50': activeTab === 0, 'margin-pattern border-red-400 bg-red-50': activeTab === 1 }"
+                class="relative flex items-center justify-center w-48 h-48 border rounded-lg padding-pattern padding-pattern-ghosted">
+                <span
+                  :class="`bg-${uiColor}-400`"
+                  class="block w-12 h-12 rounded-lg"></span>
+                <div
+                  :class="`text-${uiColor}-400`"
+                  class="absolute w-32 h-32 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  <span class="absolute flex flex-col justify-between h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                    <svg
+                      :class="{ 'transform rotate-180': activeTab === 1}"
+                      class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg
+                      :class="{ 'transform rotate-180': activeTab === 1}"
+                      class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M14.707 12.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                  </span>
+                  <span class="absolute flex justify-between w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                    <svg
+                      :class="{ 'transform rotate-180': activeTab === 1}"
+                      class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg
+                      :class="{ 'transform rotate-180': activeTab === 1}"
+                      class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <output
+               :class="`text-${uiColor}-400`"
+              class="flex items-start justify-center py-4 mt-2 font-mono text-2xl font-light tracking-tighter ">
+            <span x-text="`.${property}${direction}-48`"></span>
+          </output>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div x-cloak class="relative flex items-center mt-8 space-x-2 text-xs font-bold tracking-wider uppercase">
+    <label
+      @click="activeTab = 0, uiColor = 'blue', property = 'p'"
+      class="z-10 flex items-center px-24 py-2 text-center transition-all duration-100 bg-white border border-transparent rounded cursor-pointer ease hover:bg-blue-50"
+      :class="{ 'text-blue-400 border-blue-300 active': activeTab === 0, 'text-gray-400 active shadow-lg': activeTab !== 0 }"
+    >
+      <svg class="block w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd"></path>
+      </svg>
+      <span class="ml-4">Padding</span></label>
+    <label
+      @click="activeTab = 1, uiColor = 'red', property = 'm'"
+      class="z-10 flex items-center px-24 py-2 text-center transition-all duration-100 bg-white border border-transparent rounded cursor-pointer ease hover:bg-red-50"
+      :class="{ 'text-red-400 border-red-300 active': activeTab === 1, 'text-gray-400 active shadow-lg': activeTab !== 1 }"
+    >
+      <svg  class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path fill="currentColor" fill-rule="evenodd" d="M9.0123 8.0123a1 1 0 0 1-1 1h-4a1 1 0 0 1 0-2h1.586l-2.293-2.293a1 1 0 1 1 1.414-1.414l2.293 2.293v-1.586a1 1 0 0 1 2 0v4Zm-.2929 8.6826a1 1 0 0 0 .2929-.7071v-4a1 1 0 0 0-1-1h-4a.9997.9997 0 0 0-1 1 1 1 0 0 0 1 1h1.586l-2.293 2.293a.9996.9996 0 0 0-.2308 1.0979A1.0003 1.0003 0 0 0 4.0087 17a.9991.9991 0 0 0 .7106-.3052l2.293-2.293v1.586a1 1 0 0 0 1.7071.7071Zm7.9755-9.3897a1 1 0 0 0-.7071-.293h-1.586l2.293-2.293a1 1 0 1 0-1.414-1.414l-2.293 2.293v-1.586a1.0002 1.0002 0 0 0-1.7071-.707.9997.9997 0 0 0-.2929.707v4a.9997.9997 0 0 0 1 1h4a1 1 0 0 0 .7071-1.707Zm-4.7071 9.6826a1.0001 1.0001 0 0 1-1-1v-4a.9997.9997 0 0 1 1-1h4a.9997.9997 0 0 1 1 1 1.0001 1.0001 0 0 1-1 1h-1.586l2.293 2.293a.9996.9996 0 0 1 .2308 1.0979 1.0004 1.0004 0 0 1-.5469.5469.999.999 0 0 1-1.0979-.2308l-2.293-2.293v1.586a1.0001 1.0001 0 0 1-1 1Z" clip-rule="evenodd"/>
+      </svg>
+      <span class="ml-4">Margin</span></label>
+  </div>
+
+  <div class="mt-5 transition-opacity duration-400 ease" :class="{ 'opacity-0': activeTab !== 0,  'active oapcity-25': activeTab === 0 }" x-show="activeTab === 0">
+    <ul class="overflow-hidden border border-blue-100 divide-y divide-blue-100 rounded-b-xl">
+      {% for key, value in tw.global.spacing %}
+        <li class="p-4 md:px-6 xl:px-8 odd:bg-blue-100 odd:bg-opacity-40 even:bg-blue-100 even:bg-opacity-20">
+          {{ paddingDemo( key, value, 12) }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="mt-5 transition-opacity duration-400 ease" :class="{ 'opacity-0': activeTab !== 1,  'active oapcity-100': activeTab === 1 }" x-show="activeTab === 1">
+    <ul class="overflow-hidden border border-red-100 divide-y divide-red-100 rounded-b-xl">
+      {% for key, value in tw.global.spacing %}
+        <li class="p-4 md:px-6 xl:px-8 odd:bg-red-100 odd:bg-opacity-40 even:bg-red-100 even:bg-opacity-20">
+          {{ marginDemo( key, value, 12) }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>

@@ -1,0 +1,8 @@
+{% macro ButtonGroup(config) %}
+    {% for item in config.buttons %}
+        <button
+            @click="{{ item['onClick'] }}"
+            x-text="{{ item['label1'] }}"
+            type="button">HELLO</button>
+    {% endfor %}
+{% endmacro %}

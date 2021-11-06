@@ -1,68 +1,77 @@
+{% from "components/site.html" import
+padding,
+ModuleHeading,
+ModuleSectionHeading,
+Capsule,
+typescaleDemo,
+fontweightDemo,
+lineHeightDemo,
+letterSpacingDemo,
+genericDemo,
+paddingDemo,
+marginDemo,
+DisplayValue,
+BoxSelectionResultDemo %}
 
+{{ ModuleHeading('Typography') }}
 
-{# {{ toc | safe }} #}
-
-<div class="grid grid-cols-12 mt-4 md:mt-6 xl:mt-8">
-  <div class="col-span-12">
-    <h2 id="typography-primary" class="font-bold text-h2">Primary font</h2>
-    <span class="inline-block mt-4 text-xl">Inter</span>
+<article class="{{ padding() }}">
+  <div class="grid grid-cols-12 mt-4 md:mt-6 xl:mt-8">
+    <div class="col-span-12">
+      {{ ModuleSectionHeading('Primary font', '') }}
+      <span class="inline-block mt-4 text-xl">Inter</span>
+    </div>
+    <div class="col-span-12 pr-8">
+      <p class="mt-6 font-medium text-lede">Inter is a typeface carefully crafted & designed for computer screens.</p>
+      <p class="mt-2 leading-relaxed md:mt-3 xl:mt-4 text-p font-semilight text-md">
+    Inter features a tall x-height to aid in readability of mixed-case and lower-case text. Several OpenType features are provided as well, like contextual alternates that adjusts punctuation depending on the shape of surrounding glyphs.</p>
+    </div>
   </div>
-  <div class="col-span-12 pr-8">
-    <p class="mt-6 font-medium text-lede">Inter is a typeface carefully crafted & designed for computer screens.</p>
-    <p class="mt-2 leading-relaxed md:mt-3 xl:mt-4 text-p font-semilight text-md">
-    Inter features a tall x-height to aid in readability of mixed-case and lower-case text. Several OpenType features are provided as well, like contextual alternates that adjusts punctuation depending on the shape of surrounding glyphs.
-</p>
-  </div>
-  {# <div class="col-span-12 place-self-end">
+</article>
+
+<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+  {{ ModuleSectionHeading('Font weight', '') }}
+  <div class="flex flex-col mt-8 space-y-3 ">
     {% for key, value in tw.global.fontWeight %}
-      <div class="flex justify-between">
-        <p class="text-gray-600 font-{{ key }} leading-none {% if not loop.first %} {% endif %}">{{ key }}</p>
-        <p class="ml-16">{{value}}</p>
+      {{ fontweightDemo(key, value) }}
+    {% endfor %}
+  </div>
+</article>
+
+<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+  {{ ModuleSectionHeading('Type scale', '') }}
+  <div class="mt-8 divide-y divide-gray-200">
+    {% for key, value in tw.global.fontSize %}
+      <div class="py-4">
+        {% set lineHeightDisplay = value[1].lineHeight %}
+        {{ typescaleDemo(key, value, lineHeightDisplay) }}
       </div>
     {% endfor %}
-  </div> #}
-</div>
-
-<div class="mt-8 md:mt-12 xl:mt-16">
-  <h2 id="typography-scale" class="font-bold text-h2">Type scale</h2>
-
-  <div class="grid grid-cols-12 pb-2 mt-4 text-sm border-b border-gray-200 md:mt-6 xl:mt-8">
-      <div class="col-span-6">
-        <span class="px-3">scale</span>
-      </div>
-      <div class="col-span-2 text-right">
-        <span class="px-3">class</span>
-      </div>
-      <div class="col-span-2 text-right">
-        <span class="px-3">rem / px</span>
-      </div>
-      <div class="col-span-2 text-right">
-        <span class="px-3">Default line height</span>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 mt-4">
-      {% for key, value in tw.global.fontSize %}
-        {% set lineHeightDisplay = value[1].lineHeight %}
-        {% if loop.index % 2 === 0 %}
-          {% set zebraStripe = 'bg-gray-500 bg-opacity-5' %}
-        {% else %}
-          {% set zebraStripe = '' %}
-        {% endif %}
-        <div class="{{ zebraStripe }} flex items-baseline col-span-6">
-          <div class="p-3 truncate text-{{ key }}">Flight plan</div>
-        </div>
-        <div class="{{ zebraStripe }} flex justify-end items-baseline col-span-2 p-3">
-          <span class="my-auto font-mono font-bold">.text-{{ key }}</span>
-        </div>
-        <div class="{{ zebraStripe }} flex justify-end items-baseline col-span-2 p-3">
-          <span class="my-auto ">{{ value[0] }} / <span class="text-xs">{{ value[0] | stripAlpha | remToPx }}</span></span>
-        </div>
-        <div class="{{ zebraStripe }} flex items-baseline col-span-2 p-3 justify-end">
-          <span class="my-auto ">{{ lineHeightDisplay }}</span>
-        </div>
-      {% endfor %}
-    </div>
   </div>
+</article>
+
+<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+  {{ ModuleSectionHeading('Letter spacing', '') }}
+  <div class="flex flex-col mt-8 space-y-3 ">
+    {% for key, value in tw.global.letterSpacing %}
+      {{ letterSpacingDemo(key, value) }}
+    {% endfor %}
+  </div>
+</article>
+
+<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+  {{ ModuleSectionHeading('Line height', '') }}
+  <div class="grid grid-cols-12 gap-8 mt-8 md:gap-12 xl:gap-16 3xl:gap-16 auto-rows-fr">
+    {% for key, value in tw.global.lineHeight %}
+      {% if 'rem' in value %}
+        {% set gradientStop = value %}
+      {% else %}
+        {% set gradientStop = [value, 'em'] | join('') %}
+      {% endif %}
+      {{ lineHeightDemo(key, value, gradientStop) }}
+    {% endfor %}
+  </div>
+</article>
 
 {# <div class="" x-data="{ phrase: 'Wizards' }">
   <input type="text" x-model="phrase" x-on:click.away="{ phrase = phrase }"
@@ -73,32 +82,3 @@
   <span></span>
   {% endfor %}
 </div> #}
-{# 
-<h2 id="tester2" class="mt-16 text-4xl text-white">Font weight</h2>
-<div class="">
-  {% for key, value in tw.global.fontWeight %}
-  <p class="mt-16 text-gray-200 font-{{ key }} leading-none {% if not loop.first %} mt-12{% endif %}">
-    Font weight
-  </p>
-  {% endfor %}
-</div>
-
-<h2 id="tester3" class="mt-16 text-4xl text-white">Letter spacing</h2>
-<div>
-  {% for key, value in tw.global.letterSpacing %}
-  <p class="mt-16 text-2xl text-gray-200 tracking-{{ key }} leading-none {% if not loop.first %} mt-12{% endif %}">
-      Letter spacing
-  </p>
-  {% endfor %}
-</div>
-
-<h2 id="tester4" class="mt-16 text-4xl text-white">Line height</h2>
-<div class="grid grid-cols-12 gap-8">
-  {% for key, value in tw.global.lineHeight %}
-  <p class="col-span-4 mt-16 text-lg text-gray-500 leading-{{ key }} {% if not loop.first %} mt-12{% endif %}" style="background-image: linear-gradient(blue 0, blue 1.0em, red 1em)">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatum alias velit distinctio.
-  </p>
-  {% endfor %}
-</div>
-
- #}

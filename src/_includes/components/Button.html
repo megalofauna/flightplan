@@ -1,0 +1,9 @@
+{% macro Button(label, action) %}
+    <button
+        @click="{{- action -}}"
+        type="button"
+        class="relative col-span-4 w-24 transition-all duration-300 h-10 px-2 py-1 bg-gray-800 border border-gray-900 rounded-l outline-none bg-opacity-80 bg-gradient-to-b focus:ring-4 focus:ring-green-500 hover:bg-[#285057] group">
+        <span class="text-xs font-light leading-8 ">{{- label -}}</span>
+        <span class="absolute transition-all duration-300 opacity-0 group-hover:opacity-50 radial-gradient"></span>
+    </button>
+{% endmacro %}

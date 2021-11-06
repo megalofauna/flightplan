@@ -1,7 +1,14 @@
+{% set moduleList = module.list %}
+{% from "../_includes/components/site.html"
+import
+Capsule,
+Button %}
+
 <!DOCTYPE html>
 <html lang="en"
-    x-data="{ light: false }"
-    :class="{ 'dark' : light !== true  }"
+    x-data="flightplan()"
+    x-init="ThemeToggle.setCurrent()"
+    :class="{'dark':ThemeToggle.isDark}"
 >
   <head>
     <meta charset="UTF-8">
@@ -16,45 +23,45 @@
     {% block head %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
   </head>
+
   <body
     x-cloak
-     x-data="{ moduleNav: false }"
-    class="flex flex-col min-h-screen font-sans text-gray-600 dark:text-gray-200"
-  >
-    <div x-data="{ currentIndex: 0 }" class="flex-grow">
+    x-init="NavPane.hidePane()"
+    class="relative grid grid-cols-10 pt-12 text-gray-500 bg-gray-50">
 
-    {{ currentIndex }}
-      {% include "./blocks/header.html" %}
+    {% include "./partials/header.html" %}
 
-      <main x-data="flightplan()" class="grid grid-cols-12 bg-gray-50 dark:bg-gray-700">
+    <aside
+      :class="{ '-translate-x-full xl:translate-x-0': NavPane.navPaneVisible === false, 'translate-x-0': NavPane.navPaneVisible === true }"
+      class="fixed z-20 block h-full min-h-screen transition duration-300 ease-in-out transform bg-gray-800 bg-opacity-50 col-span-0 xl:col-span-2 4xl:col-span-1 w-96 xl:bg-opacity-100 backdrop-blur-2xl xl:w-auto xl:relative xl:shadow-none">
+      {% include "../_includes/blocks/module-navigation-panel.html" %}
+    </aside>
 
-        <div class="bg-gray-100 col-span-0 xl:col-span-2 dark:bg-gray-800 xl:pt-2">
-          {% include "./blocks/module-nav.html" %}
-        </div>
-
-        <div class="flex flex-col col-span-12 p-6 mt-12 border-l border-gray-500 place-items-stretch border-opacity-10 dark:border-opacity-50 dark:border-black md:p-8 xl:col-span-10 xl:p-8 xl:mt-0 2xl:px-12"
-            @click="moduleNav = false">
-          {{ content | safe }}
-
-        {# {% include "./blocks/aside.html" %} #}
-
-        </div>
-      </main>
-    </div>
+    <main
+      x-init="NavPane.getItems({{ module.sections|dump }})"
+      class="relative col-span-10 xl:col-span-8 4xl:col-span-9">
+      {% include "./partials/toaster.html" %}
+      {{ content|safe }}
+    </main>
     {# {% include "./blocks/footer.html" %} #}
-
     <!-- Alpine Plugins -->
-    <script defer="defer" src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-
+    {# <script defer src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.2.x/dist/screen.min.js"></script> #}
+    <script defer src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <!-- Alpine Core -->
-    <script defer="defer" src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="/static/js/app.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/static/js/flightplan.js"></script>
+    {# <script src="/static/js/app.js"></script> #}
+
     {% if path == "home" %}
-
       <!-- Netlify Identity Widget -->
-
       <!-- Needed only if you are using Netlify Identity feature -->
       <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     {% endif %}
+    <div
+      x-show="NavPane.navPaneVisible"
+      x-transition.opacity.duration.500ms
+      @click.stop="NavPane.hidePane()"
+      class="fixed inset-0 w-screen h-screen bg-gray-500 bg-opacity-50"></div>
   </body>
 </html>

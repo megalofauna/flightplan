@@ -1,18 +1,28 @@
-<header class="fixed z-20 w-full px-8 bg-gray-800 border-b border-gray-900">
-    <div class="flex items-center justify-between h-16">
-        <button label="module navigation" type="button">NAV</button>
-        <a class="text-white xl:ml-0" href="/">
-            Flight Plan
-        </a>
-        <nav class="flex list-none">
-            {% if navigation.items %}
-                {% for item in navigation.items %}
-                    <a class="relative justify-between text-sm ml-8 text-gray-400 py-2 {{ 'text-white font-medium' if item.url in page.url }}" href="{{ item.url }}">
-                        <span>{{ item.label }}</span>
-                        <span class="{{ 'hidden' if not item.url in page.url }} block absolute left-0 w-full h-px bg-gray-500 -bottom-3"></span>
-                    </a>
-                {% endfor %}
-            {% endif %}
-        </nav>
-    </div>
+{% import "../components/ThemeToggle.html" as global %}
+
+<header 
+    class="fixed inset-x-0 top-0 z-50 flex items-center justify-start w-full h-12 px-4 bg-gray-900 md:px-8 xl:px-12">
+
+    <button 
+        type="button" 
+        label="module navigation"
+        class="flex items-center justify-center w-12 h-12 xl:hidden" 
+        @click="NavPane.displayPane()"
+        @keyup.escape="NavPane.hidePane()">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+
+    <a class="flex items-center ml-4" href="/">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" clip-rule="evenodd" viewBox="0 0 48 48">
+            <path class="text-blue-500" fill="currentColor" d="m21.31 19.035 1.554-14.681a1.356 1.356 0 0 1 1.365-1.214h.002c.7.008 1.279.547 1.336 1.245l1.215 14.736a5.55 5.55 0 0 1 1.968 1.943c.472.786.728 1.642.784 2.498l12.693 7.47a1.36 1.36 0 0 1 .543 1.746h-.001a1.359 1.359 0 0 1-1.687.704l-13.928-4.97a5.577 5.577 0 0 1-6.118.165l-13.3 5.753a1.357 1.357 0 0 1-1.73-.592l-.001-.002a1.359 1.359 0 0 1 .424-1.778l11.965-8.166a5.573 5.573 0 0 1 2.916-4.857Zm2.664 1.738a3.201 3.201 0 0 0 0 6.4 3.201 3.201 0 0 0 0-6.4Z"/>
+            <path class="text-gray-300" fill="currentColor" d="m35.332 31.43 5.75 2.052c.141.05.286.076.43.079-3.39 6.198-9.973 10.406-17.53 10.406a19.879 19.879 0 0 1-12.708-4.57l5.427-3.95a13.493 13.493 0 0 0 7.28 2.12c4.746 0 8.926-2.441 11.351-6.137ZM5.986 32.558l-.038.017a19.87 19.87 0 0 1-1.933-8.574c0-8.47 5.287-15.716 12.737-18.615l.806 6.664c-4.25 2.292-7.143 6.787-7.143 11.95 0 1.672.303 3.274.857 4.753l-4.843 3.305a1.355 1.355 0 0 0-.443.5ZM25.51 4.093c10.139.768 18.172 9.122 18.432 19.393l.006.515c0 .379-.01.755-.031 1.13l-6.402-2.069c-.433-6.35-5.246-11.504-11.436-12.466l-.512-6.211a1.388 1.388 0 0 0-.057-.292Z"/>
+        </svg>
+        <span class="ml-2 tracking-tightest">
+            <span class="font-medium text-blue-400 text-md md:text-lg">flight</span>
+            <span class="font-medium text-gray-300 text-md md:text-lg">plan</span>
+        </span>
+    </a>
+    {# {{ global.ThemeToggle() }} #}
 </header>
