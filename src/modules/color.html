@@ -1,50 +1,62 @@
-<div class="flex mt-16 space-x-8">
-  {% for key, value in tw.all.colors %}
-    {% if value | type !== 'object' and key !== 'current' %}
-      <h3 class="mt-2 font-mono text-white">{{ key }}</h3>
-      <div class="flex-grow {% if not loop.first %} {% endif %} overflow-hidden rounded dark:bg-gray-800 dark:bg-opacity-50 border-gray-800 border-opacity-50">
-        <div class="relative overflow-hidden bg-{{ key }} h-32">
-          {% if key === 'transparent' %}
-            <svg class="absolute inset-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-              <defs>
-                <pattern class="text-white text-opacity-10" id="checkerboard" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-                  <path viewBox="0 0 8 8" width="24" height="24" fill="currentColor" fill-rule="evenodd" d="M0 0h4v4H0V0zm4 4h4v4H4V4z"/>
-                </pattern>
-              </defs>
-              <rect x="0" y="0" width="100%" height="100%" fill="url(#checkerboard)"></rect>
-            </svg>
-          {% endif %}
-        </div>
-        
-        <ul class="p-2 text-xs">
-          <li x-data="{ css: 'bg-{{key}}', contentType: 'color' }">
-            <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
+{% from "components/site.html"
+import
+padding,
+ModuleHeading,
+ModuleSectionHeading %}
+
+<article
+  x-data=""
+  x-init=""
+  class="{{ padding() }}">
+
+  <div class="">
+    {% for key, value in tw.all.colors %}
+      {% if value | type !== 'object' and key !== 'current' %}
+        <h3 class="mt-2 font-mono text-white">{{ key }}</h3>
+        <div class="flex-grow {% if not loop.first %} {% endif %} overflow-hidden rounded dark:bg-gray-800 dark:bg-opacity-50 border-gray-800 border-opacity-50">
+
+          <div class="relative overflow-hidden bg-{{ key }} h-32">
+            {% if key === 'transparent' %}
+              <svg class="absolute inset-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <defs>
+                  <pattern class="text-white text-opacity-10" id="checkerboard" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                    <path viewBox="0 0 8 8" width="24" height="24" fill="currentColor" fill-rule="evenodd" d="M0 0h4v4H0V0zm4 4h4v4H4V4z"/>
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#checkerboard)"></rect>
+              </svg>
+            {% endif %}
+          </div>
+
+          <ul class="p-2 text-xs">
+            <li x-data="{ css: 'bg-{{key}}', contentType: 'color' }">
+              <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
               type="button" @click="Clipboard.setContent(css, $clipboard, contentType)">
-              <span class="uppercase">CSS:</span>
-              <span class="ml-4 font-mono" x-text="contentType"></span>
-            </button>
-          </li>
-          <li x-data="{ hex: '{{value}}', contentType: 'color'  }">
-            <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
+                <span class="ml-4 font-mono" x-text="contentType"></span>
+              </button>
+            </li>
+            <li x-data="{ hex: '{{value}}', contentType: 'color'  }">
+              <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
               type="button" @click="Clipboard.setContent(hex, $clipboard, contentType)">
-              <span class="uppercase">HEX:</span>
-              <span class="ml-4 font-mono" x-text="hex"></span>
-            </button>
-          </li>
-          <li x-data="{ rgb: '{{ value | hexToRgb() }}', contentType: 'color'  }">
-            <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100" 
+                <span class="uppercase">HEX:</span>
+                <span class="ml-4 font-mono" x-text="hex"></span>
+              </button>
+            </li>
+            <li x-data="{ rgb: '{{ value | hexToRgb() }}', contentType: 'color'  }">
+              <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100" 
               type="button" @click="Clipboard.setContent(rgb, $clipboard, contentType)">
-              <span class="uppercase">RGB:</span>
-              <span class="ml-4 font-mono" x-text="rgb"></span>
-            </button>
-          </li>
-        </ul>
+                <span class="uppercase">RGB:</span>
+                <span class="ml-4 font-mono" x-text="rgb"></span>
+              </button>
+            </li>
+          </ul>
 
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 
+</article>
 
 {# <div class="">
   {% for key, value in tw.all.colors %}
@@ -65,60 +77,59 @@
   {% endfor %}
 </div> #}
 
-<h2 class="mt-16 text-xl md:text-2xl xl:text-3xl">Color families</h2>
-<div class="grid">
-  {% for key, value in tw.all.colors %}
-    {% if value | type === 'object' %}
-      <div class="mt-8">
-        <h3 class="text-white capitalize text-md md:text-lg xl:text-xl">{{key}}</h3>
-        <div class="flex mt-4">
-          <div class="grid w-full grid-cols-2 gap-4 overflow-hidden md:grid-cols-3 lg:grid-cols-5">
-            {% for subkey, subvalue in value %}
-              {% set rgbChannelsObject = subvalue | replace('#', '') | hexToRgb(true) %}
-              <div class="col-span-1 rounded-b dark:bg-gray-800 dark:bg-opacity-50">
-                <div class="relative bg-{{key}}-{{subkey}} h-24 md:h-32 xl:h-48 w-full rounded-t border border-gray-800 border-opacity-50">
-                  {# <code class="absolute w-full text-center inset-x-0 bottom-4 block font-mono
-                      {% if value === default and key !== 'DEFAULT' %}default {% endif %}
-                      {{ subvalue | getContrastYIQ() }}
-                      w-auto px-1 py-1 font-mono">bg-{{key}}-{{subkey}}
-                  </code> #}
+<article
+  x-data=""
+  x-init=""
+  class="{{ padding() }}">
 
-                  <code class="absolute w-full text-center top-2 right-2 block font-mono {{ subvalue | getContrastYIQ() }} w-auto px-1 py-1 text-2xl font-mono">Aa</code>
+  {{ ModuleSectionHeading('Color families', 'butt') }}
 
-                </div>
-
-                <ul class="p-2 text-xs">
-                  <li x-data="{ css: 'bg-{{key}}-{{subkey}}', contentType: 'color' }" class="">
-                    <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
+  <div class="grid">
+    {% for key, value in tw.all.colors %}
+      {% if value | type === 'object' %}
+        <h3 class="mt-12 capitalize top-12 text-md md:text-lg xl:text-xl">
+          {{- key -}}
+        </h3>
+        <div class="">
+          <div class="flex mt-4">
+            <div class="grid w-full grid-cols-2 gap-4 overflow-hidden md:grid-cols-3 lg:grid-cols-5">
+              {% for subkey, subvalue in value %}
+                {% set rgbChannelsObject = subvalue | replace('#', '') | hexToRgb(true) %}
+                <div class="col-span-1 overflow-hidden border border-gray-200 rounded-t border-b-none">
+                  <div class="relative bg-{{key}}-{{subkey}} h-24 md:h-32 xl:h-48 w-full">
+                    <code class="absolute w-full text-center top-2 right-3 block font-mono {{ subvalue | getContrastYIQ() }} w-auto px-1 py-1 text-2xl font-mono">Aa</code>
+                  </div>
+                  <ul class="p-2 text-xs bg-gray-700 rounded-b">
+                    <li x-data="{ css: 'bg-{{key}}-{{subkey}}', contentType: 'color' }">
+                      <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-300 transition-colors duration-200 ease hover:cursor-clipboard hover:text-white active:text-white" 
                       type="button" @click="Clipboard.setContent(css, $clipboard, contentType)">
-                      <span class="uppercase">CSS:</span>
-                      <span class="ml-4 font-mono" x-text="css"></span>
-                    </button>
-                  </li>
-                  <li x-data="{ hex: '{{subvalue}}', contentType: 'color' }" class="">
-                    <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100 active:text-white" 
-                      type="button" @click="Clipboard.setContent(hex, $clipboard, contentType)"> 
-                      <span class="uppercase">HEX:</span>
-                      <span class="ml-4 font-mono" x-text="hex"></span>
-                    </button>
-                  </li>
-                  <li x-data="{ rgb: '{{ subvalue | hexToRgb() }}', contentType: 'color' }" class="">
-                    <button 
+                        <span class="font-mono" x-text="css"></span>
+                      </button>
+                    </li>
+                    <li x-data="{ hex: '{{subvalue}}', contentType: 'color' }">
+                      <button class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-300 transition-colors duration-200 ease hover:cursor-clipboard hover:text-white active:text-white" 
+                      type="button" @click="Clipboard.setContent(hex, $clipboard, contentType)">
+                        <span class="font-mono" x-text="hex"></span>
+                      </button>
+                    </li>
+                    <li x-data="{ rgb: '{{ subvalue | hexToRgb() }}', contentType: 'color' }">
+                      <button 
                       type="button" @click="Clipboard.setContent(rgb, $clipboard, contentType)"
-                      class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-400 transition-colors duration-200 ease hover:cursor-clipboard hover:text-gray-100">
-                      <span class="uppercase">RGB:</span>
-                      <span class="ml-4 font-mono" x-text="rgb"></span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            {% endfor %}
+                      class="flex items-center w-full h-5 p-1 text-xs text-left text-gray-300 transition-colors duration-200 ease hover:cursor-clipboard hover:text-white">
+                        <span class="font-mono" x-text="rgb"></span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</article>
+
 {# <script>
   function swatches() {
     return {

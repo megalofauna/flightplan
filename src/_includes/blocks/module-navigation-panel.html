@@ -1,27 +1,26 @@
-{% set moduleList = modules.pages %}
+{% set sections = module.sections %}
 
-<nav class="fixed w-full p-8 ml-auto xl:sticky top-20">
+<nav class="fixed w-full p-8 ml-auto top-12 xl:sticky xl:w-full">
     <ul>
-
-        {% for module in moduleList %}
-            {% set currentModule = module %}
-
-            <li class="-mt-px">
-                <div class="flex justify-between">
-                    <a 
-                            href="#{{ module.id }}"
-                            @click="NavPane.updateIndex({{loop.index0}})"
-                            {# class="flex-grow {% if currentModule.id === module.id %}bg-opacity-5 border-l-4 {% else %}bg-opacity-0 border-transparent {% endif %}border-l-8 flex items-center h-10 transition cursor-pointer group text-sm hover:bg-gray-500 hover:bg-opacity-5"  #}
-                            class="flex items-center flex-grow h-10 text-sm transition cursor-pointer group hover:bg-gray-500 hover:bg-opacity-5" 
-                        >
-                        <div class="flex items-center justify-center w-10 h-full">
-                            <svg class="{% if currentModule.id === module.id %} opacity-100 {% else %}opacity-0 {% endif %} flex-shrink-0 w-5 h-5 transition group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
-                                    {{ module.icon | safe }}
-                                </svg>
-                        </div>
-                        <span class="capitalize">{{ module.id }}</span>
-                    </a>
-                </div>
+        {% for section in sections %}
+            <li class="flex flex-wrap justify-between -mt-px" data-section-id="{{- sections[loop.index0].id -}}">
+                <a href="{{- sections[loop.index0].hash -}}" class="flex items-center flex-grow h-10 text-sm transition cursor-pointer group hover:bg-gray-900 hover:bg-opacity-20">
+                    <div class="flex items-center justify-center w-10 h-full">
+                        <svg class="text-blue-400 {% if currentModule.id === module.id %}opacity-100 {% else %}opacity-0 {% endif %} flex-shrink-0 w-5 h-5 transition group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor">
+                            {{ module.icon | safe }}
+                        </svg>
+                    </div>
+                    <span class="capitalize text-gray-50">{{- sections[loop.index0].id -}}</span>
+                </a>
+                {# {% if section.children | length %}
+                    <ul class="w-full bg-gray-800">
+                        {% for child in section.children %}
+                            <li>
+                                <a href="{{ child.hash }}">{{ child.label }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %} #}
             </li>
             {% endfor%}
         </ul>

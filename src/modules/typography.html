@@ -1,8 +1,15 @@
-{# {{ toc | safe }} #}
+{% from "components/site.html"
+import
+padding,
+ModuleHeading,
+ModuleSectionHeading,
+Capsule,
+DisplayValue,
+BoxSelectionResultDemo %}
 
 <div class="grid grid-cols-12 mt-4 md:mt-6 xl:mt-8">
   <div class="col-span-12">
-    <h2 id="typography-primary" class="font-bold text-h2">Primary font</h2>
+   {{ ModuleSectionHeading('Primary font', '') }}
     <span class="inline-block mt-4 text-xl">Inter</span>
   </div>
   <div class="col-span-12 pr-8">
@@ -22,7 +29,8 @@
 </div>
 
 <div class="mt-8 md:mt-12 xl:mt-16">
-  <h2 id="typography-scale" class="font-bold text-h2">Type scale</h2>
+  
+ {{ ModuleSectionHeading('Type scale', '') }}
 
   <div class="grid grid-cols-12 pb-2 mt-4 text-sm border-b border-gray-200 md:mt-6 xl:mt-8">
     <div class="col-span-6">

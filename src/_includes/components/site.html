@@ -8,12 +8,16 @@
     </button>
 {% endmacro %}
 
+{% macro padding() %}
+    p-4 md:p-8 xl:p-12 3xl:p-16 4xl:p-20
+{% endmacro %}
+
 {% macro DisplayValue(label) %}
     <div class="absolute text-sm text-center transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
         <span x-text="{{- label -}}" class="text-bold"></span>
-        {# {% if "rem" in label %}
+        {% if "rem" in label %}
             <span x-text="({{- label | replace('rem', '') * 16 -}}px)" class="block text-xs text-gray-400"></span>
-        {% endif %} #}
+        {% endif %}
     </div>
 {% endmacro %}
 
@@ -27,54 +31,15 @@
     </button>
 {% endmacro %}
 
-{% macro BoxSelectionWidget() %}
-    <div 
-        class="relative w-40 h-40 overflow-hidden text-xs rounded box-selection-widget ease" style="outline: #111827 3px solid">
-        <label
-            for="BoxSelectionWidget-T" class="absolute top-0 left-0 flex items-center justify-center w-full h-8 p-2 transition-colors duration-200 bg-gray-700 border-black side-top group ease hover:bg-gray-900 hover:bg-opacity-10 hover:cursor-pointer outline-black" style="clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);">
-            <span class="">T</span>
-            <input
-                x-model="currentWidgetSelection"
-                class="appearance-none" type="radio" id="BoxSelectionWidget-T" name="BoxSelectionWidget" value="t">
-        </label>
-        <label
-            for="BoxSelectionWidget-R" class="absolute top-0 right-0 flex items-center justify-center w-8 h-full p-2 transition-colors duration-200 bg-gray-700 border-black side-right group ease hover:bg-gray-900 hover:bg-opacity-20 hover:cursor-pointer" style="clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);">
-            <span class="">R</span>
-            <input
-                x-model="currentWidgetSelection"
-                class="appearance-none" type="radio" id="BoxSelectionWidget-R" name="BoxSelectionWidget" value="r">
-        </label>
-        <label
-            for="BoxSelectionWidget-B" class="absolute bottom-0 left-0 flex items-center justify-center w-full h-8 p-2 transition-colors duration-200 bg-gray-700 border-black side-bottom group ease hover:bg-gray-900 hover:bg-opacity-10 hover:cursor-pointer"  style="clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);">
-            <span class="">B</span>
-            <input
-                x-model="currentWidgetSelection"
-                class="appearance-none" type="radio" id="BoxSelectionWidget-B" name="BoxSelectionWidget" value="b">
-        </label>
-        <label
-            for="BoxSelectionWidget-L" class="absolute top-0 left-0 flex items-center justify-center w-8 h-full p-2 transition-colors duration-200 bg-gray-700 border-black side-left group ease hover:bg-gray-900 hover:bg-opacity-20 hover:cursor-pointer" style="clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);">
-            <span class="">L</span>
-            <input
-                x-model="currentWidgetSelection"
-                class="appearance-none" type="radio" id="BoxSelectionWidget-L" name="BoxSelectionWidget" value="l">
-        </label>
-        <svg class="absolute inset-0 w-40 h-40 text-gray-900 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 160 160">
-            <path fill="currentColor" fill-rule="evenodd" d="M0 2.121V0h2.121l32 32H32v2.121l-32-32ZM2.121 160H0v-2.121l32-32V128h2.121l-32 32ZM160 157.879V160h-2.121l-32-32H128v-2.121l32 32Zm0-155.758V0h-2.121l-32 32H128v2.121l32-32Z" clip-rule="evenodd"/>
-        </svg>
-        <div class="absolute z-10 w-24 h-24 -translate-x-1/2 -translate-y-1/2 bg-gray-800 border-gray-900 border-3 top-1/2 left-1/2"></div>
-    </div>
-
-{% endmacro %}
-
 {% macro BoxSelectionWidgetSimple() %}
     <div 
         class="relative w-48 h-48 mt-2 text-sm">
-        
+        {#         
         <div
             :class="{ 'opacity-100 scale-100': hasCurrentSelection, 'opacity-0 scale-50': !hasCurrentSelection  }" 
             class="absolute w-12 h-12 transition-all duration-300 ease-in-out transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
             {{ blurBelow(1, 'blue-700', 'sm') }}
-        </div>
+        </div> #}
 
         <button
             @click="clearCurrentWidgetSelection()"
@@ -126,42 +91,65 @@
             :class="{ '`border-${currentInfix}-4 border-${currentInfix}-solid`': hasCurrentSelection }"  
             class="absolute w-40 h-40 transition-all duration-100 ease-in-out -translate-x-1/2 -translate-y-1/2 border-0 border-fp-primary top-1/2 left-1/2"></div>
     </div>
-
 {% endmacro %}
-
-
 
 {% macro BoxSelectionResultDemo() %}
     <aside class="flex justify-center w-3/12 px-4 py-8 bg-gray-200 rounded-lg shadow-xl">
-    {{ BoxSelectionWidgetSimple() }}
+        {{ BoxSelectionWidgetSimple() }}
     </aside>
 {% endmacro %}
 
-{% macro blurBelow(zIndex, color, intensity) %}
-    <span class="absolute inset-0 w-full h-full bg-{{ color }} blur-{{ intensity }} z-[ {{- zIndex -1 -}} ]"></span>
-{% endmacro %}
-
-{% macro ButtonGroup(config) %}
-    {% for item in config.buttons %}
-        <button
-            @click="{{ item['onClick'] }}"
-            x-text="{{ item['label1'] }}"
-            type="button">HELLO</button>
-    {% endfor %}
-{% endmacro %}
-
 {% macro ModuleHeading(label) %}
-    <h2 
-        id="{{ label }}"
-        class="pt-16 text-2xl capitalize module">
-        {{- label -}}
-    </h2>
+    <div class="flex items-end justify-start h-48 p-4 py-8 bg-gray-100 md:p-8 xl:p-12">
+        <h1 class="text-2xl font-medium text-gray-600 capitalize">
+            {{- label -}}
+        </h1>
+    </div>
 {% endmacro %}
 
 {% macro ToolTip(content, hyperlink) %}
     <span class="absolute px-2 py-2 text-xs leading-4 text-gray-100 transition-all duration-300 -translate-x-1/2 bg-gray-900 rounded opacity-0 whitespace-nowrap -top-8 left-1/2 group-hover:opacity-100 group-hover:-top-12">
         {{ content }}
     </span>
+{% endmacro %}
+
+{% macro paddingDemo(key, value, edgeLength) %}
+    <div class="inline-block pl-{{ key }} relative bg-blue-50 border border-blue-400 rounded-lg flex-grow-0">
+        <span class="block w-{{ edgeLength }} h-{{ edgeLength }} bg-blue-400 rounded-lg"></span>
+        <svg class="absolute inline-block w-5 h-5 text-blue-400 transition-all duration-200 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 group-hover:text-blue-500 group-hover:-translate-x-1/4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <div class="absolute padding-pattern top-1/2 -translate-y-1/2 left-0 w-{{ key }} h-{{ edgeLength }}"></div>
+    </div>
+    <div class="flex overflow-hidden">
+        <span class="px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">pl-{{ key }}</span>
+        <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 rounded-r bg-gray-50 border-l-none">{{ value }}</span>
+    </div>
+{% endmacro %}
+
+{% macro marginDemo(key, value, edgeLength) %}
+    <div class="inline-block pl-{{ key }} relative bg-red-50 border border-red-400 rounded-lg flex-grow-0">
+        <span class="block w-{{ edgeLength }} h-{{ edgeLength }} bg-red-400 rounded-lg"></span>
+        <svg class="absolute inline-block w-5 h-5 text-red-400 transition-all duration-200 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 group-hover:text-blue-500 group-hover:-translate-x-1/4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <div class="absolute margin-pattern top-1/2 -translate-y-1/2 left-0 w-{{ key }} h-{{ edgeLength }}"></div>
+    </div>
+    <div class="flex overflow-hidden">
+        <span class="px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">ml-{{ key }}</span>
+        <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 rounded-r bg-gray-50 border-l-none">{{ value }}</span>
+    </div>
+{% endmacro %}
+
+{% macro genericDemo(key, value) %}
+    <div class="relative flex-grow h-6 border border-blue-200 rounded bg-blue-50 generic-pattern">
+        <div class="z-10 generic-pattern absolute h-6 top-0 rounded w-{{ key }} bg-blue-400"></div>
+        <div class="absolute z-0 text-6xl font-extrabold text-blue-100 -translate-y-1/2 text-opacity-90 top-1/2 right-2">{{- key -}}</div>
+    </div>
+    <div class="flex mt-2 overflow-hidden">
+        <span class="px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">{{- key -}}</span>
+        <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 rounded-r bg-gray-50 border-l-none">{{- value -}}</span>
+    </div>
 {% endmacro %}
 
 {% macro DocumentationLink(documentationURL) %}
@@ -174,9 +162,8 @@
 {% endmacro %}
 
 {% macro ModuleSectionHeading(label, documentationURL) %}
-    <div class="relative flex items-end justify-between pb-4 mt-24">
-        <h3 class="text-3xl font-bold tracking-tight">{{ label }}</h3>
-        {{ DocumentationLink(documentationURL) }}
-        <span class="absolute inset-x-0 bottom-0 w-full h-1 bg-gray-900 rounded-full"></span>
+    <div class="relative flex items-end justify-between">
+        <h2 class="text-2xl font-medium tracking-tight md:text-3xl xl:text-4xl">{{ label }}</h2>
+        {# {{ DocumentationLink(documentationURL) }} #}
     </div>
 {% endmacro %}

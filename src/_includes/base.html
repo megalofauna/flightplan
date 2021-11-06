@@ -1,12 +1,13 @@
-{% from "../_includes/components/site.html" import ButtonGroup, Capsule, Button %}
-
-{% set moduleList = modules.sections %}
+{% set moduleList = module.list %}
+{% from "../_includes/components/site.html"
+import
+Capsule,
+Button %}
 
 <!DOCTYPE html>
 <html lang="en"
     x-data="flightplan()"
     x-init="ThemeToggle.setCurrent()"
-    class="h-full"
     :class="{'dark':ThemeToggle.isDark}"
 >
   <head>
@@ -26,40 +27,23 @@
   <body
     x-cloak
     x-init="NavPane.hidePane()"
+    class="relative grid grid-cols-10 pt-12 text-gray-500 bg-gray-50">
 
-    class="[ text-gray-500 bg-gray-100 ]
-           [ relative grid grid-cols-12 min-h-screen ]">
- 
+    {% include "./partials/header.html" %}
+
     <aside
       :class="{ '-translate-x-full xl:translate-x-0': NavPane.navPaneVisible === false, 'translate-x-0': NavPane.navPaneVisible === true }"
-      class="fixed z-20 block w-64 min-h-screen transition duration-300 ease-in-out transform backdrop-blur-2xl md:w-96 xl:w-auto xl:relative xl:shadow-none xl:col-span-2">
-
+      class="fixed z-20 block h-full min-h-screen transition duration-300 ease-in-out transform bg-gray-800 bg-opacity-50 col-span-0 xl:col-span-2 4xl:col-span-1 w-96 xl:bg-opacity-100 backdrop-blur-2xl xl:w-auto xl:relative xl:shadow-none">
       {% include "../_includes/blocks/module-navigation-panel.html" %}
-
     </aside>
 
-    <main class="col-span-12 xl:col-span-10">
-
-      {% include "./partials/header.html" %}
-
-      <div
-        x-ref="Toaster"
-        x-text="Clipboard.toastContent"
-        x-show="Clipboard.toastVisible === true"
-        x-transition:enter="transition ease-out duration-150"
-        x-transition:enter-start="opacity-0 translate-x-8"
-        x-transition:enter-end="opacity-100 translate-x-0" 
-        x-transition:leave="transition ease-in duration-1000" 
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0" 
-        class="fixed w-64 p-4 text-xs border-l-8 border-green-600 top-8 right-4"></div>
-
-      {{content|safe}}
-
+    <main
+      x-init="NavPane.getItems({{ module.sections|dump }})"
+      class="relative col-span-10 xl:col-span-8 4xl:col-span-9">
+      {% include "./partials/toaster.html" %}
+      {{ content|safe }}
     </main>
-
-    {% include "./blocks/footer.html" %}
-
+    {# {% include "./blocks/footer.html" %} #}
     <!-- Alpine Plugins -->
     {# <script defer src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.2.x/dist/screen.min.js"></script> #}
     <script defer src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js"></script>
@@ -78,7 +62,6 @@
       x-show="NavPane.navPaneVisible"
       x-transition.opacity.duration.500ms
       @click.stop="NavPane.hidePane()"
-      class="fixed inset-0 w-screen h-screen bg-pink-700 bg-opacity-30">
-    </div>
+      class="fixed inset-0 w-screen h-screen bg-gray-500 bg-opacity-50"></div>
   </body>
 </html>

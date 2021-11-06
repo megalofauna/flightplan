@@ -16,22 +16,11 @@ module.exports = {
         '3xl': '1920px',
         '4xl': '2160px',
         'fp': 'calc(512px + 66.667%)',
-        'max-sm': {'max': '540px'}
+        'max-sm': { 'max': '540px' }
       },
       colors: {
         gray: colors.coolGray,
         green: colors.teal,
-          // 50: '#fafafa',
-          // 100: '#f4f4f5',
-          // 200: '#e4e4e7',
-          // 300: '#d4d4d8',
-          // 400: '#a1a1aa',
-          // 500: '#71717a',
-          // 600: '#52525b',
-          // 700: '#3f3f46',
-          // 800: '#27272a',
-          // 900: '#18181b',
-        // },
         fp: {
           "primary-dark": colors.blue['700'],
           "primary": colors.blue['500'],
@@ -70,9 +59,9 @@ module.exports = {
         ]
       },
       fontSize: {
-        h2: ['clamp(1.125rem, 3vw, 2rem)', { lineHeight: 'clamp(1.75rem, 1.275rem, 1rem)'}],
-        p: ['clamp(0.75rem, 2vw, 1.125rem)', { lineHeight: 'clamp(1.75, 1.5, 1.25)'}],
-        lede: ['clamp(1rem, 3vw, 1.5rem)', { lineHeight: 'clamp(1, 1.5, 1.375)'}],
+        h2: ['clamp(1.125rem, 3vw, 2rem)', { lineHeight: 'clamp(1.75rem, 1.275rem, 1rem)' }],
+        p: ['clamp(0.75rem, 2vw, 1.125rem)', { lineHeight: 'clamp(1.75, 1.5, 1.25)' }],
+        lede: ['clamp(1rem, 3vw, 1.5rem)', { lineHeight: 'clamp(1, 1.5, 1.375)' }],
       },
       height: {
         192: "48rem",
@@ -86,7 +75,7 @@ module.exports = {
         256: "64rem"
       }
     },
-     
+
     // transitionTimingFunction: {
     //   DEFAULT: 'cubic-bezier(0, 0.3, 0, 1)',
     // }

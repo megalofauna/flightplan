@@ -1,89 +1,113 @@
-// function setTheme() {
-//     return {
-//         colors: ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'],
-//         //variants: [100, 200, 300, 400, 500, 600, 700, 800, 900],
-//         variants: [500],
-//         currentColor: '',
-//         iconColor: '',
-//         isOpen: false,
-//         initColor() {
-//             this.currentColor = 'blue-500';
-//         },
-//         selectColor(color, variant) {
-//             this.currentColor = `${color}-${variant}`
-//         }
-//     }
-// }
+(function () {
+    var self = this;
+    var variableRegex, splatVariableRegex, escapeRegex, addGroupForTo, addVariablesInTo, compile, recogniseIn, extractParamsForFromAfter;
+    variableRegex = /(\:([a-z\-_]+))/gi;
+    splatVariableRegex = /(\:([a-z\-_]+)\\\*)/gi;
+    escapeRegex = function (pattern) {
+        return pattern.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    };
+    exports.table = function () {
+        var self = this;
+        var rows;
+        rows = [];
+        return {
+            add: function (pattern, route) {
+                var self = this;
+                return rows.push({
+                    pattern: pattern,
+                    route: route
+                });
+            },
+            compile: function () {
+                var self = this;
+                return exports.compile(rows);
+            }
+        };
+    };
+    exports.compile = function (routeTable) {
+        var self = this;
+        var groups, regexen, gen1_items, gen2_i, row;
+        groups = [];
+        regexen = [];
+        gen1_items = routeTable;
+        for (gen2_i = 0; gen2_i < gen1_items.length; ++gen2_i) {
+            row = gen1_items[gen2_i];
+            addGroupForTo(row, groups);
+            regexen.push("(" + compile(row.pattern) + ")");
+        }
+        return {
+            regex: new RegExp("^(" + regexen.join("|") + ")$"),
+            groups: groups,
+            recognise: function (input) {
+                var self = this;
+                return recogniseIn(self.regex.exec(input) || [], self.groups);
+            }
+        };
+    };
+    addGroupForTo = function (row, groups) {
+        var group;
+        group = {
+            route: row.route,
+            params: []
+        };
+        groups.push(group);
+        return addVariablesInTo(row.pattern, group);
+    };
+    addVariablesInTo = function (pattern, group) {
+        var match;
+        while (match = variableRegex.exec(pattern)) {
+            group.params.push(match[2]);
+        }
+        return void 0;
+    };
+    compile = function (pattern) {
+        return escapeRegex(pattern).replace(splatVariableRegex, "(.+)").replace(variableRegex, "([^\\/]+)");
+    };
+    exports.compilePattern = function (pattern) {
+        var self = this;
+        return compile(pattern);
+    };
+    recogniseIn = function (match, groups) {
+        var g, i, gen3_forResult;
+        g = 0;
+        for (i = 2; i < match.length; i = i + groups[g - 1].params.length + 1) {
+            gen3_forResult = void 0;
+            if (function (i) {
+                if (typeof match[i] !== "undefined") {
+                    gen3_forResult = {
+                        route: groups[g].route,
+                        params: extractParamsForFromAfter(groups[g], match, i)
+                    };
+                    return true;
+                }
+                g = g + 1;
+            }(i)) {
+                return gen3_forResult;
+            }
+        }
+        return false;
+    };
+    extractParamsForFromAfter = function (group, match, i) {
+        var params, p;
+        params = [];
+        for (p = 0; p < group.params.length; p = p + 1) {
+            params.push([group.params[p], decodeURIComponent(match[p + i + 1])]);
+        }
+        return params;
+    };
+}).call(this);
 
-// const sidenav = document.querySelector('#sidenav-open')
-// const closenav = document.querySelector('#sidenav-close')
-// const opennav = document.querySelector('#sidenav-button')
 
-// // set focus to our open/close buttons after animation
-// sidenav.addEventListener('transitionend', e => {
-//   if (e.propertyName !== 'transform')
-//     return
+const routes = [
+    { pattern = "/", route = 'home' },
+    { pattern = "/modules", route = 'list modules' },
+    { pattern = "/modules/:id", route = 'show module' },
+    // { pattern = "/stuff/:path*", route = 'show stuff' }
+]
 
-//   const isOpen = document.location.hash === '#sidenav-open'
+const router = routism.compile(routes)
 
-//   isOpen
-//     ? closenav.focus()
-//     : opennav.focus()
-
-//   if (!isOpen) {
-//     history.replaceState(history.state, '')
-//   }
-// })
-
-// close our menu when esc is pressed
-// sidenav.addEventListener('keyup', e => {
-//   if (e.code === 'Escape')
-//     window.history.length
-//       ? window.history.back()
-//       : document.location.hash = ''
-// })
-
-// const flightplan = () => {
-//     return {
-//         moduleActive: false,
-//         moduleList: document.querySelectorAll('.module'),
-//         toggleModule(moduleId, el) {
-//             el.classList.add('menu-item-active')
-//             this.moduleList.forEach((module) => {
-//                 module.classList.add('inactive');
-//                 module.classList.remove('active');
-//             })
-//             document.getElementById(moduleId).classList.remove('inactive');
-//             document.getElementById(moduleId).classList.add('active');
-//         },
-//         toggleTheme(choice) {
-//             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-//             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-//                 document.documentElement.classList.add('dark')
-//             } else {
-//                 document.documentElement.classList.remove('dark')
-//             }
-
-//             // Whenever the user explicitly chooses light mode
-//             localStorage.theme = 'light'
-
-//             // Whenever the user explicitly chooses dark mode
-//             localStorage.theme = 'dark'
-
-//             // Whenever the user explicitly chooses to respect the OS preference
-//             localStorage.removeItem('theme')
-//         },
-//         copy(value, toastIt) {
-//             this.$clipboard(value);
-//             if (toastIt) {
-//                 this.toaster(value);
-//             }
-//         },
-//         toaster(value) {
-//             this.$dispatch('toast', { notification: value })
-//         }
-
-//     }
-// }
-
-// page.base('/modules')
+router.recognise('/')             // { route = 'home', params = {} }
+router.recognise('/modules')        // { route = 'list posts', params = {} }
+router.recognise('/modules/#spacing')    // { route = 'show post',  params = [['id', '123']] }
+//router.recognise('/stuff/1/2/3')  // { route = 'show stuff', params = [['path', '1/2/3']] }
