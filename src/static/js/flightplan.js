@@ -66,6 +66,7 @@ function flightplan(config) {
       moduleIndex: 0,
       moduleTotal: 0,
       moduleKeys: null,
+      navPaneItems: [...document.querySelectorAll('.jsNavPaneItem svg')],
       navPaneVisible: false,
       displayPane: function () {
         this.navPaneVisible = true
@@ -90,6 +91,7 @@ function flightplan(config) {
       },
       updateIndex: function (loopIndex) {
         this.moduleIndex = loopIndex
+        // this.navPaneItems[loopIndex].classList.add('')
         this.hidePane()
         // this.prettifyUrl()
       },
@@ -171,7 +173,7 @@ function flightplan(config) {
 
 //       navigationBlocks.forEach((block, index) => {
 //         console.log(block.dataset.sectionId + " : " + )
-        
+
 //         if (block.dataset.sectionId === sections[index].id) {
 //           block.append(anchor)
 //         }

@@ -22,7 +22,7 @@ ModuleSectionHeading %}
     id="{{- section.id -}}" x-show="section === '#{{- sections[loop.index0].id -}}'"
     :class="{ 'active': section === '#{{ sections[loop.index0].id }}', 'inactive': section !== '#{{- sections[loop.index0].id -}}' }"
     class="transform transition-all module duration-100 ease {% if loop.first %}active {% else %}inactive {% endif %}">
-    {{- GetModule(section.id) -}}
+     {{- GetModule(section.id) -}}
     <nav class="flex items-center">
       {% if not loop.first %}
         <a class="w-1/2 px-12 py-6 mr-auto text-sm group hover:bg-gray-100" href="{{- sections[loop.index0 - 1].hash -}}">
@@ -49,4 +49,4 @@ ModuleSectionHeading %}
       {% endif %}
     </nav>
   </section>
- {% endfor %}
+{% endfor %}
