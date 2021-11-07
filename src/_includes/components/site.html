@@ -8,8 +8,19 @@
     </button>
 {% endmacro %}
 
+{% macro ComingSoon(label) %}
+    <span class="relative">
+        <span class="block w-full text-gray-400">{{ label }}</span>
+        {# <span class="absolute left-0 block w-full text-gray-500 bg-gray-100 border border-gray-200 -bottom-1">Coming soon</span> #}
+    </span>
+{% endmacro %}
+
 {% macro padding() %}
     p-4 md:p-8 xl:p-12 3xl:p-16 4xl:p-20
+{% endmacro %}
+
+{% macro asideLayout() %}
+    hidden xl:block flex-shrink-0 flex-grow-0 h-screen xl:w-96 4xl:w-128
 {% endmacro %}
 
 {% macro DisplayValue(label) %}
@@ -164,7 +175,7 @@
 {% endmacro %}
 
 {% macro lineHeightDemo(key, value, gradientStop) %}
-    <div class="flex flex-col justify-between col-span-12 p-4 bg-gray-100 border border-gray-200 rounded sm:col-span-6 lg:col-span-4 3xl:col-span-3 4xl:col-span-2">
+    <div class="flex flex-col justify-between col-span-12 p-4 bg-gray-100 border border-gray-200 rounded sm:col-span-6 lg:col-span-6 2xl:col-span-4 3xl:col-span-3">
         <p class=" text-gray-400 text-lg leading-{{ key }}"
         style="background-image: repeating-linear-gradient(to top, #60A5FA 0, #60A5FA 2px, transparent 1px, transparent {{ gradientStop }}); background-size: 100%; background-position: 100% 0, 0 0;"
           >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatum alias velit distinctio.
@@ -201,6 +212,25 @@
     </div>
 {% endmacro %}
 
+{% macro borderRadiusDemo(key, value) %}
+    <li class="col-span-6 sm:col-span-4 md:col-span-3 xl:col-span-4 3xl:col-span-3 4xl:col-span-2">
+        <div class="relative" style="padding-top: 100%">
+            <div class="absolute inset-0 w-full h-full rounded-{{ key }} h-20 bg-gray-100 border border-gray-500 ease" style="padding-top: 100%"></div>
+        </div>
+        {# <button
+            @click="$clipboard(`${currentClass}-${id}`)" 
+            class="relative block w-full h-8 px-2 py-1 mx-auto mt-3 font-mono text-sm text-center transition-colors duration-200 bg-gray-100 border border-blue-200 rounded hover:bg-blue-500 hover:text-white 3xl:w-11/12 group ease" type="button">
+            <span x-text="hasCurrentSelection ? `${currentClass}-${id}` : `rounded-${id}`"></span>
+            <span x-text="'copy'" class="absolute px-2 py-1 leading-4 text-gray-600 transition-all duration-200 -translate-x-1/2 rounded opacity-0 -top-4 bg-gray-50 left-1/2 group-hover:opacity-100 group-hover:-top-12">Copy</span>
+        </button> #}
+        {# <div class="flex mt-4 overflow-hidden">
+            <span class="px-3 py-1 font-mono text-xs text-center text-gray-100 bg-gray-500 border border-gray-800 rounded-l">rounded-{{- key -}}</span>
+            <span class="px-3 py-1 -ml-px font-mono text-xs text-center border border-gray-800 rounded-r bg-gray-50 border-l-none">{{- value -}}</span>
+        </div> #}
+        {{ InfoLabels(key, value, 'rounded', '2xl') }}
+    </li>
+{% endmacro %}
+
 {% macro DocumentationLink(documentationURL) %}
     <a class="relative p-3 border-2 border-[#06B6D4] transition-colors duration-200 bg-transparent rounded ease group text-[#06B6D4] hover:bg-[#06B6D4]" href="{{ documentationURL }}">
         <svg class="w-6 h-6 transition-colors duration-200 group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -214,5 +244,12 @@
     <div class="relative flex items-end justify-between">
         <h2 class="text-2xl font-medium tracking-tight md:text-3xl xl:text-4xl">{{ label }}</h2>
         {# {{ DocumentationLink(documentationURL) }} #}
+    </div>
+{% endmacro %}
+
+{% macro InfoLabels(key, value, categoryPrefix, unfurlAt) %}
+    <div class="flex bg-gray-50 flex-col mt-2 {{ unfurlAt }}:mt-4 overflow-hidden font-mono text-xs {{ unfurlAt }}:flex-row border border-gray-800 rounded {{ unfurlAt }}:border-none">
+        <span class="block px-3 py-1 text-gray-100 bg-gray-500 {{ unfurlAt }}:border border-gray-700 {{ unfurlAt }}:rounded-l">{{ categoryPrefix }}-{{ key }}</span>
+        <span class="-ml-px px-3 py-1 text-xs {{ unfurlAt }}:border border-gray-700 {{ unfurlAt }}:rounded-r {{ unfurlAt }}:flex-shrink">{{ value }}</span>
     </div>
 {% endmacro %}

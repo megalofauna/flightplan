@@ -1,5 +1,6 @@
 {% from "components/site.html" import
 padding,
+asideLayout,
 ModuleHeading,
 ModuleSectionHeading,
 Capsule,
@@ -15,63 +16,80 @@ BoxSelectionResultDemo %}
 
 {{ ModuleHeading('Typography') }}
 
-<article class="{{ padding() }}">
-  <div class="grid grid-cols-12 mt-4 md:mt-6 xl:mt-8">
-    <div class="col-span-12">
-      {{ ModuleSectionHeading('Primary font', '') }}
-      <span class="inline-block mt-4 text-xl">Inter</span>
-    </div>
-    <div class="col-span-12 pr-8">
-      <p class="mt-6 font-medium text-lede">Inter is a typeface carefully crafted & designed for computer screens.</p>
-      <p class="mt-2 leading-relaxed md:mt-3 xl:mt-4 text-p font-semilight text-md">
+<div class="flex">
+  <div>
+    <article class="{{ padding() }}">
+      <div class="grid grid-cols-12">
+        <div class="col-span-12">
+          {{ ModuleSectionHeading('Primary font', '') }}
+          <span class="inline-block mt-4 font-extrabold text-9xl">Inter</span>
+        </div>
+        <div class="col-span-9 pr-8">
+          <p class="mt-6 font-medium text-lede">Inter is a typeface carefully crafted & designed for computer screens.</p>
+          <p class="mt-2 leading-relaxed md:mt-3 xl:mt-4 text-p font-semilight text-md">
     Inter features a tall x-height to aid in readability of mixed-case and lower-case text. Several OpenType features are provided as well, like contextual alternates that adjusts punctuation depending on the shape of surrounding glyphs.</p>
-    </div>
-  </div>
-</article>
-
-<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
-  {{ ModuleSectionHeading('Font weight', '') }}
-  <div class="flex flex-col mt-8 space-y-3 ">
-    {% for key, value in tw.global.fontWeight %}
-      {{ fontweightDemo(key, value) }}
-    {% endfor %}
-  </div>
-</article>
-
-<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
-  {{ ModuleSectionHeading('Type scale', '') }}
-  <div class="mt-8 divide-y divide-gray-200">
-    {% for key, value in tw.global.fontSize %}
-      <div class="py-4">
-        {% set lineHeightDisplay = value[1].lineHeight %}
-        {{ typescaleDemo(key, value, lineHeightDisplay) }}
+        </div>
       </div>
-    {% endfor %}
-  </div>
-</article>
+    </article>
 
-<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
-  {{ ModuleSectionHeading('Letter spacing', '') }}
-  <div class="flex flex-col mt-8 space-y-3 ">
-    {% for key, value in tw.global.letterSpacing %}
-      {{ letterSpacingDemo(key, value) }}
-    {% endfor %}
-  </div>
-</article>
+    <article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+      {{ ModuleSectionHeading('Font weight', '') }}
+      <div class="flex flex-col mt-8 space-y-3 ">
+        {% for key, value in tw.global.fontWeight %}
+          {{ fontweightDemo(key, value) }}
+        {% endfor %}
+      </div>
+    </article>
 
-<article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
-  {{ ModuleSectionHeading('Line height', '') }}
-  <div class="grid grid-cols-12 gap-8 mt-8 md:gap-12 xl:gap-16 3xl:gap-16 auto-rows-fr">
-    {% for key, value in tw.global.lineHeight %}
-      {% if 'rem' in value %}
-        {% set gradientStop = value %}
-      {% else %}
-        {% set gradientStop = [value, 'em'] | join('') %}
-      {% endif %}
-      {{ lineHeightDemo(key, value, gradientStop) }}
-    {% endfor %}
+    <article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+      {{ ModuleSectionHeading('Type scale', '') }}
+      <div class="mt-8 divide-y divide-gray-200">
+        {% for key, value in tw.global.fontSize %}
+          <div class="py-4">
+            {% set lineHeightDisplay = value[1].lineHeight %}
+            {{ typescaleDemo(key, value, lineHeightDisplay) }}
+          </div>
+        {% endfor %}
+      </div>
+    </article>
+
+    <article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+      {{ ModuleSectionHeading('Letter spacing', '') }}
+      <div class="flex flex-col mt-8 space-y-3 ">
+        {% for key, value in tw.global.letterSpacing %}
+          {{ letterSpacingDemo(key, value) }}
+        {% endfor %}
+      </div>
+    </article>
+
+    <article class="{{ padding() }} mt-8 md:mt-12 xl:mt-16">
+      {{ ModuleSectionHeading('Line height', '') }}
+      <div class="grid grid-cols-12 gap-8 mt-8 md:gap-12 xl:gap-16 3xl:gap-16 auto-rows-fr">
+        {% for key, value in tw.global.lineHeight %}
+          {% if 'rem' in value %}
+            {% set gradientStop = value %}
+          {% else %}
+            {% set gradientStop = [value, 'em'] | join('') %}
+          {% endif %}
+          {{ lineHeightDemo(key, value, gradientStop) }}
+        {% endfor %}
+      </div>
+    </article>
   </div>
-</article>
+  <aside class="{{ padding() }} {{ asideLayout() }}">
+    <h4 class="tracking-tight text-gray-500 uppercase">Documentation</h4>
+    <ul class="mt-4 ">
+      <li class="py-2">
+        <a class="flex underline hover:text-blue-500 group" href="https://tailwindcss.com/docs/font-family">
+          <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path class="group-hover:text-blue-500" fill="currentColor" fill-rule="evenodd" d="M12.0002 5C9.0666 5 7.2336 6.4445 6.4999 9.3336 7.6 7.8891 8.8834 7.3475 10.35 7.7084c.8367.2059 1.4351.8038 2.0968 1.4659 1.0786 1.0781 2.3271 2.3257 5.0533 2.3257 2.9332 0 4.7666-1.4445 5.4999-4.3332-1.0997 1.4445-2.3831 1.9861-3.8497 1.6248-.8371-.2059-1.4355-.8039-2.0972-1.4655C15.9745 6.2472 14.7265 5 12.0002 5Zm-5.5003 6.5C3.5667 11.5 1.7333 12.9445 1 15.8336c1.1002-1.4445 2.3835-1.9861 3.8497-1.6252.8371.2059 1.4355.8039 2.0972 1.4659C8.0255 16.7524 9.2735 18 12.0002 18c2.9332 0 4.7666-1.4441 5.4999-4.3332-1.1001 1.4445-2.3835 1.9861-3.8501 1.6252-.8367-.2063-1.4351-.8043-2.0968-1.4659-1.0786-1.078-2.327-2.3261-5.0533-2.3261Z" clip-rule="evenodd"/>
+          </svg>
+          <span class="ml-2">Font family</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+</div>
 
 {# <div class="" x-data="{ phrase: 'Wizards' }">
   <input type="text" x-model="phrase" x-on:click.away="{ phrase = phrase }"

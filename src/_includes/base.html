@@ -33,13 +33,13 @@ Button %}
 
     <aside
       :class="{ '-translate-x-full xl:translate-x-0': NavPane.navPaneVisible === false, 'translate-x-0': NavPane.navPaneVisible === true }"
-      class="fixed z-20 block h-full min-h-screen transition duration-300 ease-in-out transform bg-gray-200 border-r border-gray-300 col-span-0 xl:col-span-2 4xl:col-span-1 w-96 xl:bg-opacity-100 backdrop-blur-2xl xl:w-auto xl:relative xl:shadow-none">
+      class="fixed z-20 block h-full min-h-screen text-center transition duration-300 ease-in-out transform bg-gray-200 border-r border-gray-300 col-span-0 xl:col-span-2 w-96 xl:bg-opacity-100 backdrop-blur-2xl xl:w-auto xl:relative xl:shadow-none">
       {% include "../_includes/blocks/module-navigation-panel.html" %}
     </aside>
 
     <main
       x-init="NavPane.getItems({{ module.sections|dump }})"
-      class="relative col-span-10 xl:col-span-8 4xl:col-span-9">
+      class="relative col-span-10 xl:col-span-8">
       {% include "./partials/toaster.html" %}
       {{ content|safe }}
     </main>

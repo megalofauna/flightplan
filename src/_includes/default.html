@@ -16,10 +16,15 @@
       <link rel="stylesheet" type="text/css" href="/static/css/prism-tomorrow.css">
     {% endif %} #}
   </head>
-  <body class="font-sans bg-gray-800">
-      {# {% include "./partials/header.html" %} #}
-      {# {{ content | safe }} #}
-      {# {% include "./partials/footer.html" %} #}
+  <body class="flex items-center justify-center min-h-screen font-sans bg-gray-800">
+    <div class="text-center">
+      <h1 class="text-5xl font-extrabold text-white">flight plan</h1>
+      <p class="mt-2 text-lg font-normal text-gray-200">Your TailwindCSS config visualized.</p>
+      <a class="block mt-8 text-blue-400 underline text-md" href="/modules/#borders">View modules</a>
+    </div>
+    {# {% include "./partials/header.html" %} #}
+    {# {{ content | safe }} #}
+    {# {% include "./partials/footer.html" %} #}
     <!-- Alpine Plugins -->
     {# <script src="/static/js/alpine-persist.js"></script> #}
     <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
@@ -27,17 +32,19 @@
     {# <script defer src="/static/js/alpine.js"></script> #}
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
-     {# document.addEventListener('alpine:init', () => {
-        Alpine.store('showAllSubmenus', {
+      {
+        # document.addEventListener('alpine:init', () => {
+          Alpine.store('showAllSubmenus', {
             on: false,
 
             toggle() {
-                this.on = ! this.on
+              this.on = !this.on
             }
-        })
-    }) #}
+          })
+        })#
+      }
     </script>
-    
+
     {% if path == "home" %}
       <!-- Netlify Identity Widget -->
       <!-- Needed only if you are using Netlify Identity feature -->

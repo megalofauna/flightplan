@@ -1,4 +1,5 @@
 {% from "components/site.html" import
+asideLayout,
 padding,
 ModuleHeading,
 ModuleSectionHeading,
@@ -13,33 +14,38 @@ BoxSelectionResultDemo %}
 
 {{ ModuleHeading('spacing') }}
 
-{# <article
+<div class="flex w-full">
+  <div class="flex-grow max-w-full">
+    <article
     x-data=""
     x-init=""
     class="{{ padding() }}">
 
-  {{ ModuleSectionHeading('Generic spacing scale', 'https://tailwindcss.com/docs/border-radius') }}
+      {{ ModuleSectionHeading('Generic spacing scale', 'https://tailwindcss.com/docs/border-radius') }}
 
-  <ul class="py-2 overflow-hidden border border-blue-100 md:py-3 xl:py-4 rounded-b-xl ">
-    {% for key, value in tw.global.spacing %}
-      <li class="p-4 md:px-6">
-        {{ genericDemo(key, value) }}
-      </li>
-    {% endfor %}
-  </ul>
-</article> #}
+      <ul class="py-2 overflow-hidden md:py-3 xl:py-4 rounded-b-xl ">
+        {% for key, value in tw.global.spacing %}
+          <li class="p-4 md:px-6">
+            {{ genericDemo(key, value) }}
+          </li>
+        {% endfor %}
+      </ul>
+    </article>
+  </div>
+  <aside class="{{ padding() }} {{ asideLayout() }}"></aside>
+</div>
 
-<div class="flex">
-  <div>
+<div class="flex w-full">
+  <div class="flex-grow max-w-full">
     <article
         x-data="{ activeTab:  0, direction: '', uiColor: 'blue', property: 'p' }"
-        class="{{ padding() }}">
-  
+        class="{{ padding() }} w-full">
+
       <div class="top-16">
         {{ ModuleSectionHeading('Padding and margin', 'https://tailwindcss.com/docs/margin') }}
-  
-        <div class="flex mt-4 space-x-16">
-  
+
+        {# <div class="flex mt-4 space-x-16"> #}
+        {#   
           <div class="flex-grow w-1/2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad doloremque provident possimus, fugiat eaque eum! Unde dolores quo inventore, cum, amet et ullam totam voluptas laboriosam, autem sunt maxime cupiditate.
           </div>
@@ -121,15 +127,15 @@ BoxSelectionResultDemo %}
                 <span x-text="`.${property}${direction}-48`"></span>
               </output>
             </div>
-          </div>
-        </div>
-  
+          </div> #}
+        {# </div> #}
+
       </div>
-      <div x-cloak class="relative flex items-center mt-8 space-x-2 text-xs font-bold tracking-wider uppercase">
+      <div x-cloak class="relative flex items-center w-full mt-8 space-x-2 text-xs font-bold tracking-wider uppercase">
         <label
           @click="activeTab = 0, uiColor = 'blue', property = 'p'"
-          class="z-10 flex items-center px-24 py-2 text-center transition-all duration-100 bg-white border border-transparent rounded cursor-pointer ease hover:bg-blue-50"
-          :class="{ 'text-blue-400 border-blue-300 active': activeTab === 0, 'text-gray-400 active shadow-lg': activeTab !== 0 }"
+          class="z-10 flex items-center px-24 py-2 text-center transition-all duration-100 border border-transparent rounded cursor-pointer hover:border-blue-500 ease"
+          :class="{ 'text-white bg-blue-500 active': activeTab === 0, 'text-gray-400 active shadow-lg bg-white': activeTab !== 0 }"
         >
           <svg class="block w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd"></path>
@@ -137,15 +143,15 @@ BoxSelectionResultDemo %}
           <span class="ml-4">Padding</span></label>
         <label
           @click="activeTab = 1, uiColor = 'red', property = 'm'"
-          class="z-10 flex items-center px-24 py-2 text-center transition-all duration-100 bg-white border border-transparent rounded cursor-pointer ease hover:bg-red-50"
-          :class="{ 'text-red-400 border-red-300 active': activeTab === 1, 'text-gray-400 active shadow-lg': activeTab !== 1 }"
+          class="z-10 flex items-center px-24 py-2 text-center transition-all duration-100 bg-white border border-transparent rounded cursor-pointer hover:border-red-500 ease"
+          :class="{ 'text-white bg-red-500 active': activeTab === 1, 'text-gray-400 active shadow-lg bg-white': activeTab !== 1 }"
         >
           <svg  class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
             <path fill="currentColor" fill-rule="evenodd" d="M9.0123 8.0123a1 1 0 0 1-1 1h-4a1 1 0 0 1 0-2h1.586l-2.293-2.293a1 1 0 1 1 1.414-1.414l2.293 2.293v-1.586a1 1 0 0 1 2 0v4Zm-.2929 8.6826a1 1 0 0 0 .2929-.7071v-4a1 1 0 0 0-1-1h-4a.9997.9997 0 0 0-1 1 1 1 0 0 0 1 1h1.586l-2.293 2.293a.9996.9996 0 0 0-.2308 1.0979A1.0003 1.0003 0 0 0 4.0087 17a.9991.9991 0 0 0 .7106-.3052l2.293-2.293v1.586a1 1 0 0 0 1.7071.7071Zm7.9755-9.3897a1 1 0 0 0-.7071-.293h-1.586l2.293-2.293a1 1 0 1 0-1.414-1.414l-2.293 2.293v-1.586a1.0002 1.0002 0 0 0-1.7071-.707.9997.9997 0 0 0-.2929.707v4a.9997.9997 0 0 0 1 1h4a1 1 0 0 0 .7071-1.707Zm-4.7071 9.6826a1.0001 1.0001 0 0 1-1-1v-4a.9997.9997 0 0 1 1-1h4a.9997.9997 0 0 1 1 1 1.0001 1.0001 0 0 1-1 1h-1.586l2.293 2.293a.9996.9996 0 0 1 .2308 1.0979 1.0004 1.0004 0 0 1-.5469.5469.999.999 0 0 1-1.0979-.2308l-2.293-2.293v1.586a1.0001 1.0001 0 0 1-1 1Z" clip-rule="evenodd"/>
           </svg>
           <span class="ml-4">Margin</span></label>
       </div>
-  
+
       <div class="mt-5 transition-opacity duration-400 ease" :class="{ 'opacity-0': activeTab !== 0,  'active oapcity-25': activeTab === 0 }" x-show="activeTab === 0">
         <ul class="overflow-hidden border border-blue-100 divide-y divide-blue-100 rounded-b-xl">
           {% for key, value in tw.global.spacing %}
@@ -166,7 +172,5 @@ BoxSelectionResultDemo %}
       </div>
     </article>
   </div>
-   <aside class="{{ padding() }} flex-shrink-0 flex-grow-0 h-screen w-64 xl:w-80 3xl:w-96">
-   
-   </aside>
+  <aside class="{{ padding() }} {{ asideLayout() }}"></aside>
 </div>

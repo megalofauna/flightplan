@@ -367,18 +367,36 @@ input[type="range"]:focus {
   box-shadow: 0 0 8px 6px rgba(0,0,0,.15)
 }
 
-/* .leading-demo {
-background: repeating-linear-gradient(
-      to bottom,
-      red 0,
-      red 1px,
-      transparent 1px,
-      transparent 1em
-    )
-} */
-
-/* .module.inactive {
-  opacity: 1;
-  display: none;
-  animation: TO-INACTIVE 450ms forwards;
-} */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.gray.400');
+}
+::-webkit-scrollbar-thumb:active {
+  background: theme('colors.gray.400');
+}
+::-webkit-scrollbar-track {
+  background: theme('colors.gray.100');
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: theme('colors.gray.100');
+}
+::-webkit-scrollbar-track:active {
+  background: theme('colors.gray.100');
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

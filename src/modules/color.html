@@ -1,10 +1,11 @@
 {% from "components/site.html"
 import
 padding,
+asideLayout,
 ModuleHeading,
 ModuleSectionHeading %}
 
-<article
+{# <article
   x-data=""
   x-init=""
   class="{{ padding() }}">
@@ -56,7 +57,7 @@ ModuleSectionHeading %}
     {% endfor %}
   </div>
 
-</article>
+</article> #}
 
 {# <div class="">
   {% for key, value in tw.all.colors %}
@@ -76,7 +77,8 @@ ModuleSectionHeading %}
     {% endif %}
   {% endfor %}
 </div> #}
-
+<div class="flex w-full">
+  <div class="flex-grow max-w-full">
 <article
   x-data=""
   x-init=""
@@ -129,6 +131,9 @@ ModuleSectionHeading %}
     {% endfor %}
   </div>
 </article>
+  </div>
+  <aside class="{{ padding() }} {{ asideLayout() }}"></aside>
+</div>
 
 {# <script>
   function swatches() {

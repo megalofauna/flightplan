@@ -1,4 +1,5 @@
-# Neat Starter
+# Flight Plan
+Your TailwindCSS config visualized.
 
 Starter Template for **N**etlify CMS, **E**leventy, **A**lpine JS & **T**ailwind CSS
 
@@ -55,6 +56,24 @@ npm run build
 npm run start
 ```
 
+## Roadmap
+
+###  Phase 1 (current)
+Intended as a proof-of-concept Tailwind configuration visualizer, Flight Plan was originally forked from @suri NEAT Starter. Like that project, Flight Plan currently uses Eleventy (with Nunjucks) and AlpineJS to do most of the heavy lifting. Both of these projects are excellent. 
+
+Using both in conjunction, however, has made for a bit of a messy implementation. Nunjucks (a templating language _for_ JavaScript) is not, itself, JavaScript. Getting Nunjucks' tokens and Alpine's properties to play nicely together is somewhat challenging. Alpine, as awesome as it is, isn't made for templating. Nunjucks, as awesome as _it_ is, isn't made for composing dynamic behavior. So, they complement one another—but it's a rocky marriage. 
+
+A future rewrite is discussed in [Phase 2](#phase-2).
+
+
+
+### Phase 2
+* Rewrite in Vue or Svelte(+Sapper)
+* 
+
+
+### Phase 3
+
 ## Author
 
-Surjith S M ( [@surjithctly](https://surjithctly.in/) )
+Chris Salmon  ( [@windowswebdev](https://google.com/) )
