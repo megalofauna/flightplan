@@ -100,7 +100,7 @@
 {% endmacro %}
 
 {% macro ModuleHeading(label) %}
-    <div class="flex items-end justify-start h-48 p-4 py-8 border-b border-gray-200 md:p-8 xl:p-12">
+    <div class="flex items-end justify-start h-48 {{ padding() }}  border-b border-gray-200 md:p-8">
         <h1 class="text-2xl font-medium text-gray-500 capitalize">
             {{- label -}}
         </h1>

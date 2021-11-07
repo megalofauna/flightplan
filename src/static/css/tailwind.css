@@ -268,7 +268,7 @@ input[type="range"]:focus {
 
 @keyframes ANIMATE-HORZ {
   0%, 100% {
-    right: calc(100% - 44px)
+    right: calc(100% - 64px)
   }
   50% {
     right: calc(0%)
@@ -291,7 +291,7 @@ input[type="range"]:focus {
 }
 
 .animate-horz {
-  right: calc(100% - 44px);
+  right: calc(100% - 64);
 }
 .animate-active {
   animation: ANIMATE-HORZ infinite;
