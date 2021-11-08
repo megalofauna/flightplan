@@ -1,11 +1,9 @@
-# Flight Plan
+# Flight Plan (v 0.1.0)
 Your TailwindCSS config visualized.
-
-Starter Template for **N**etlify CMS, **E**leventy, **A**lpine JS & **T**ailwind CSS
 
 ## Live Demo
 
-[https://neat-starter.netlify.app/](https://neat-starter.netlify.app/)
+[https://flightplan.dev/](https://flightplan.dev/)
 
 ### Technologies used:
 
@@ -14,12 +12,6 @@ Starter Template for **N**etlify CMS, **E**leventy, **A**lpine JS & **T**ailwind
 - [Alpine.js](https://github.com/alpinejs/alpine)
 - [Tailwind CSS](https://tailwindcss.com/)
 
-| ![image](https://user-images.githubusercontent.com/1884712/93762662-a62e4700-fc2d-11ea-9b2c-fda9f503402b.png) |
-| ------------------------------------------------------------------------------------------------------------- |
-
-
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/surjithctly/neat-starter&amp;stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" /></a>
-
 ## Getting Started
 
 Detailed instructions are available in my blog. [Check it out](https://blog.surjithctly.in/neat-stack-create-a-static-website-with-netlify-cms-eleventy-alpinejs-and-tailwindcss)
@@ -27,13 +19,13 @@ Detailed instructions are available in my blog. [Check it out](https://blog.surj
 ### 1\. Clone this Repository
 
 ```
-git clone https://github.com/surjithctly/neat-starter.git
+git clone https://github.com/megalofauna/flightplan.git
 ```
 
 ### 2\. Navigate to the directory
 
 ```
-cd neat-starter
+cd flightplan
 ```
 
 ### 3\. Install dependencies
@@ -56,23 +48,35 @@ npm run build
 npm run start
 ```
 
-## Roadmap
+## Origin
 
-###  Phase 1 (current)
-Intended as a proof-of-concept Tailwind configuration visualizer, Flight Plan was originally forked from @suri NEAT Starter. Like that project, Flight Plan currently uses Eleventy (with Nunjucks) and AlpineJS to do most of the heavy lifting. Both of these projects are excellent. 
+Intended as a proof-of-concept way to visualize a customized Tailwind config file, Flight Plan was originally forked from [@surjithctly](https://twitter.com/surjithctly)'s NEAT Starter. Like that project, Flight Plan currently uses [Eleventy](https://www.11ty.dev/) (with [Nunjucks](https://mozilla.github.io/nunjucks/templating.html)) and [AlpineJS](https://alpinejs.dev/) to do most of the heavy lifting. 
 
-Using both in conjunction, however, has made for a bit of a messy implementation. Nunjucks (a templating language _for_ JavaScript) is not, itself, JavaScript. Getting Nunjucks' tokens and Alpine's properties to play nicely together is somewhat challenging. Alpine, as awesome as it is, isn't made for templating. Nunjucks, as awesome as _it_ is, isn't made for composing dynamic behavior. So, they complement one another—but it's a rocky marriage. 
+Each of these projects is excellent. 
 
-A future rewrite is discussed in [Phase 2](#phase-2).
+Using Nunjucks in conjunction with Alpine, however, has made for a messy implementation. Nunjucks (a templating language _for_ JavaScript) is not, itself, JavaScript. Getting its tokens and Alpine's properties to play nicely together is challenging. 
 
+But both are necessary. Alpine, as awesome as it is, isn't made for templating. And Nunjucks, as awesome as _it_ is, isn't made for composing reactive behavior in the browser. So, they complement one another—but in a rocky marriage sort of way. 
 
+With the proof of concept effectively complete (well, completed _enough_), I won't be putting any additional effort into the NEAT version of flight plan. There were too many compromises and too much general messiness to continue down this path. 
 
-### Phase 2
-* Rewrite in Vue or Svelte(+Sapper)
-* 
+###  Phase 1 (near-term)
+* Archive NEAT flight plan
 
+### Phase 2 (mid-term)
+
+The mid-term vision for flight plan is to provide developers and companies an easy, intuitive tool to manage style guides that are powered by Tailwind.
+
+* Rewrite core functionality in [Vue](https://vuejs.org/) (with [Vite](https://vitejs.dev/)
+* Incorporate headless CMS (preferably git-backed) for general site authoring and especially for Tailwind config customizing/updating.
+  * [Forestry](https://forestry.io/)?
+  * [NetlifyCMS](https://www.netlifycms.org/)?
+  * [Strapi](https://strapi.io/integrations/vuejs-cms)?
+  * [Cosmic](https://docs.cosmicjs.com/)?
 
 ### Phase 3
+* Refine module visualizations
+* build CLI for project scaffolding
 
 ## Author
 
