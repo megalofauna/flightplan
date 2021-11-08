@@ -67,7 +67,7 @@ With the proof of concept effectively complete (well, completed _enough_), I won
 
 The mid-term vision for flight plan is to provide developers and companies an easy, intuitive tool to manage style guides that are powered by Tailwind.
 
-* Rewrite core functionality in [Vue](https://vuejs.org/) (with [Vite](https://vitejs.dev/)
+* Rewrite core functionality in [Vue](https://vuejs.org/) (with [Vite](https://vitejs.dev/))
 * Incorporate headless CMS (preferably git-backed) for general site authoring and especially for Tailwind config customizing/updating.
   * [Forestry](https://forestry.io/)?
   * [NetlifyCMS](https://www.netlifycms.org/)?
